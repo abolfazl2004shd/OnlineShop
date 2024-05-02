@@ -1,9 +1,7 @@
-﻿namespace OnlineShop.Models
+﻿namespace OnlineShop.ViewModels
 {
-    public class Customer
+    public class RegisterViewModel
     {
-        [Key]
-        public int CustomerId { get; set; }
         [Required]
         public required string UserName { get; set; }
         [Required]
@@ -21,18 +19,14 @@
         public string? EmailAddress { get; set; }
 
         [Required]
-        [DataType(DataType.DateTime)]
-        public DateTime RegistrationDate { get; set; }
-
-        [Required]
         [DataType(DataType.PhoneNumber)]
         public required string PhoneNumber { get; set; }
         [Required]
         [DataType(DataType.Password)]
         public required string Password { get; set; }
 
-        public List<Basket> Baskets { get; set; }
-        public List<Order> Orders { get; set; }
-        public List<Comment> Comments { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        public required string ConfirmedPassword { get; set;}
     }
 }

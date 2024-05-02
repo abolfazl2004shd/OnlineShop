@@ -1,4 +1,4 @@
-
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +10,19 @@ builder.Services.AddDbContext<OnlineShopDbContext>(options =>
         builder.Configuration["ConnectionStrings:OnlineShopDbContextConnection"]
         );
 });
+
+// Authentication
+builder.Services.AddAuthentication(
+    CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+    option =>
+    {
+        option.LoginPath = "/Account/Login";
+        option.LogoutPath = "/Account/Logout";
+        option.ExpireTimeSpan = TimeSpan.Zero;
+    });
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,7 +39,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
+app.UseAuthentication();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
