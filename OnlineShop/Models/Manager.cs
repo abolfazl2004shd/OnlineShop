@@ -6,15 +6,36 @@
         public int ManagerId { get; set; }
 
         [Required]
-        public string SSN { get; set; } = string.Empty;
+        public required string UserName { get; set; }
 
         [Required]
-        public required string PhoneNumber { get; set; }
+        public required string FirstName { get; set; }
+
+        [Required]
+        public required string LastName { get; set; }
+
+        [Required]
+        public required string SSN { get; set; }
+
+        [Required]
+        public required string Sex { get; set; }
+
+
+        [DataType(DataType.EmailAddress)]
+        public string? EmailAddress { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime RegistrationDate { get; set; }
 
-        public Shop? Shop {  get; set; }
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        public required string PhoneNumber { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public required string Password { get; set; }
+
+        public Shop? Shop { get; set; }
     }
 }

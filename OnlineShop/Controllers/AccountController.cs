@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-
-namespace OnlineShop.Controllers
+﻿namespace OnlineShop.Controllers
 {
     public class AccountController(OnlineShopDbContext _db) : Controller
     {
@@ -69,14 +67,14 @@ namespace OnlineShop.Controllers
 
             _context.Entry(customer).State = EntityState.Added;
             _context.SaveChanges();
-            return Redirect("/Home/Index");
+            return Redirect(url: "/Home/Index");
         }
 
         [Authorize]
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return Redirect("Account/Login");
+            return Redirect(url: "Account/Login");
         }
     }
 }
