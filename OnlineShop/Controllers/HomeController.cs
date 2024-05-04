@@ -13,5 +13,8 @@
             var AllProducts = _context.Products.ToList();
             return View(AllProducts);
         }
+
+        // int customerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
+        // Customer? customer = _context.Customers.Find(customerId);
     }
 }

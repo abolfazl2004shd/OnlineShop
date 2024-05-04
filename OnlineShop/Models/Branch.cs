@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace OnlineShop.Models
+﻿namespace OnlineShop.Models
 {
     public class Branch
     {
@@ -10,7 +8,23 @@ namespace OnlineShop.Models
         public int ShopId { get; set; }
 
         [Required]
-        public string BranchName { get; set; } = string.Empty;
+        public required string BranchName { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime RegistrationDate { get; set; }
+
+        [Required]
+        public required string PostalCode { get; set; }
+
+        [Required]
+        public required string Address { get; set; }
+
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        public required string PhoneNumber { get; set; }
+
+
 
         [ForeignKey(nameof(ShopId))]
         public required Shop Shop { get; set; }

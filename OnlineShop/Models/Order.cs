@@ -11,6 +11,9 @@
         public required string Address { get; set; }
 
         [Required]
+        public required string PostalCode { get; set; }
+
+        [Required]
         [DataType(DataType.DateTime)]
         public DateTime RegistrationDate { get; set; }
 

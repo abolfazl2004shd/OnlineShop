@@ -1,5 +1,4 @@
-﻿
-namespace OnlineShop.Models
+﻿namespace OnlineShop.Models
 {
     public class Item
     {

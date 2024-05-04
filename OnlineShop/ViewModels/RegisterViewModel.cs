@@ -27,6 +27,7 @@
 
         [Required]
         [DataType(DataType.Password)]
-        public required string ConfirmedPassword { get; set;}
+        [Compare(nameof(Password))]
+        public required string ConfirmedPassword { get; set; }
     }
 }

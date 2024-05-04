@@ -4,6 +4,9 @@
     {
         private readonly OnlineShopDbContext _context = _db;
 
+        #region Login
+
+
         [HttpGet]
         public IActionResult Login()
         {
@@ -34,9 +37,14 @@
             {
                 IsPersistent = login.RememberMe,
             };
+
             HttpContext.SignInAsync(principal, properties);
-            return View("Home/Index");
+            return RedirectToAction(actionName: "Index", controllerName: "Home");
         }
+        #endregion
+
+
+        #region Register
 
         [HttpGet]
         public IActionResult Register()
@@ -58,23 +66,28 @@
                 FirstName = register.FirstName,
                 LastName = register.LastName,
                 PhoneNumber = register.PhoneNumber,
-                Sex = register.Sex,
-                SSN = register.SSN,
-                RegistrationDate = DateTime.Now,
                 EmailAddress = register.EmailAddress,
+                SSN = register.SSN,
+                Sex = register.Sex,
+                RegistrationDate = DateTime.Now,
+                Wallet = 1000,
                 Password = register.Password,
             };
 
             _context.Entry(customer).State = EntityState.Added;
             _context.SaveChanges();
-            return Redirect(url: "/Home/Index");
+            return RedirectToAction(actionName: "Index", controllerName: "Home");
         }
 
+        #endregion
+
+        #region Logout
         [Authorize]
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return Redirect(url: "Account/Login");
+            return RedirectToAction(actionName: "Login", controllerName: "Account");
         }
+        #endregion
     }
 }

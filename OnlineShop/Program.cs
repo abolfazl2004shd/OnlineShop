@@ -1,26 +1,30 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+#region DataBase System Management
+
 builder.Services.AddDbContext<OnlineShopDbContext>(options =>
 {
     options.UseSqlServer(
         builder.Configuration["ConnectionStrings:OnlineShopDbContextConnection"]
         );
 });
+#endregion
 
-// Authentication
+#region Authentication
+
 builder.Services.AddAuthentication(
     CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
     option =>
     {
         option.LoginPath = "/Account/Login";
         option.LogoutPath = "/Account/Logout";
-        option.ExpireTimeSpan = TimeSpan.Zero;
+        option.ExpireTimeSpan = TimeSpan.FromDays(30);
     });
 
+#endregion
 
 
 var app = builder.Build();
@@ -38,8 +42,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
+
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

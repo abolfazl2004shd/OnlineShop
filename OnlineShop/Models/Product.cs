@@ -12,6 +12,7 @@
         public required string ProductName { get; set; }
 
         [Required]
+        [DataType(DataType.ImageUrl)]
         public required string ImageSrc { get; set; }
 
         [Required]
