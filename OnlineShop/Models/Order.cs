@@ -24,6 +24,17 @@
         [Required]
         public decimal ShippingPrice { get; set; }
 
+        [Required]
+        public required string City { get; set; }
+
+        [Required]
+        public required string Street { get; set; }
+
+        [Required]
+        public required string Plaque { get; set; }
+
+
+
         [ForeignKey(nameof(BasketId))]
         [Required]
         public required Basket Basket { get; set; }

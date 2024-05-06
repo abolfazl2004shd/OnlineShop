@@ -8,9 +8,9 @@
         {
             return View();
         }
-        public IActionResult ShowAllProducts()
+        public async Task<IActionResult> ShowAllProducts()
         {
-            var AllProducts = _context.Products.ToList();
+            var AllProducts = await _context.Products.ToListAsync();
             return View(AllProducts);
         }
 

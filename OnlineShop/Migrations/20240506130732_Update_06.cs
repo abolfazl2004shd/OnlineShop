@@ -1,52 +1,51 @@
-﻿
-
-#nullable disable
+﻿#nullable disable
 
 namespace OnlineShop.Migrations
 {
     /// <inheritdoc />
-    public partial class Update_04 : Migration
+    public partial class Update_06 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "EmailAddress",
-                table: "Managers",
-                type: "nvarchar(max)",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "FirstName",
-                table: "Managers",
+                name: "City",
+                table: "Orders",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "LastName",
-                table: "Managers",
+                name: "Plaque",
+                table: "Orders",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "Password",
-                table: "Managers",
+                name: "Street",
+                table: "Orders",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "Sex",
-                table: "Managers",
+                name: "City",
+                table: "Branches",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "UserName",
-                table: "Managers",
+                name: "Plaque",
+                table: "Branches",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
+                name: "Street",
+                table: "Branches",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "");
@@ -56,28 +55,28 @@ namespace OnlineShop.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "EmailAddress",
-                table: "Managers");
+                name: "City",
+                table: "Orders");
 
             migrationBuilder.DropColumn(
-                name: "FirstName",
-                table: "Managers");
+                name: "Plaque",
+                table: "Orders");
 
             migrationBuilder.DropColumn(
-                name: "LastName",
-                table: "Managers");
+                name: "Street",
+                table: "Orders");
 
             migrationBuilder.DropColumn(
-                name: "Password",
-                table: "Managers");
+                name: "City",
+                table: "Branches");
 
             migrationBuilder.DropColumn(
-                name: "Sex",
-                table: "Managers");
+                name: "Plaque",
+                table: "Branches");
 
             migrationBuilder.DropColumn(
-                name: "UserName",
-                table: "Managers");
+                name: "Street",
+                table: "Branches");
         }
     }
 }

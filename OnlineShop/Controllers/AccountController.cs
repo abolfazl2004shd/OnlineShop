@@ -6,14 +6,13 @@
 
         #region Login
 
-
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult Login(LoginViewModel login)
+        public async Task<IActionResult> Login(LoginViewModel login)
         {
             string UserName = login.UserName;
             string Password = login.Password;
@@ -35,10 +34,10 @@
             var principal = new ClaimsPrincipal(identity);
             var properties = new AuthenticationProperties
             {
-                IsPersistent = login.RememberMe,
+                //  IsPersistent = login.RememberMe,
             };
 
-            HttpContext.SignInAsync(principal, properties);
+            await HttpContext.SignInAsync(principal, properties);
             return RedirectToAction(actionName: "Index", controllerName: "Home");
         }
         #endregion
@@ -53,7 +52,7 @@
         }
 
         [HttpPost]
-        public IActionResult Register(RegisterViewModel register)
+        public async Task<IActionResult> Register(RegisterViewModel register)
         {
             if (register.Password != register.ConfirmedPassword)
             {
@@ -75,7 +74,7 @@
             };
 
             _context.Entry(customer).State = EntityState.Added;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return RedirectToAction(actionName: "Index", controllerName: "Home");
         }
 
@@ -83,9 +82,9 @@
 
         #region Logout
         [Authorize]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction(actionName: "Login", controllerName: "Account");
         }
         #endregion

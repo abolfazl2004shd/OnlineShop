@@ -24,6 +24,14 @@
         [DataType(DataType.PhoneNumber)]
         public required string PhoneNumber { get; set; }
 
+        [Required]
+        public required string City { get; set; }
+
+        [Required]
+        public required string Street { get; set; }
+
+        [Required]
+        public required string Plaque { get; set; }
 
 
         [ForeignKey(nameof(ShopId))]

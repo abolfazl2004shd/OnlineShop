@@ -9,7 +9,7 @@
         [DataType(DataType.Password)]
         public required string Password { get; set; }
 
-        [Required]
-        public bool RememberMe { get; set; } = false;
+        //[Required]
+        //public bool RememberMe { get; set; } = false;
     }
 }
