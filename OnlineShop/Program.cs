@@ -24,6 +24,7 @@ builder.Services.AddAuthentication(
         option.ExpireTimeSpan = TimeSpan.FromDays(30);
     });
 
+
 #endregion
 
 
@@ -46,8 +47,21 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 
+#region Mapping Route
+app.MapAreaControllerRoute(
+    name: "areas",
+    areaName: "Managers",
+    pattern: "Managers/{controller=Managers}/{action=Index}/{id?}");
+
+app.MapAreaControllerRoute(
+    name: "areass",
+    areaName: "Customers",
+    pattern: "Customers/{controller=Managers}/{action=Index}/{id?}");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+#endregion
+
 
 app.Run();

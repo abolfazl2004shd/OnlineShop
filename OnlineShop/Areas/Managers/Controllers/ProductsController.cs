@@ -1,22 +1,19 @@
-﻿namespace OnlineShop.Controllers
+﻿namespace OnlineShop.Areas.Managers.Controllers
 {
-    public class ProductsController : Controller
+    [Authorize]
+    [Area(areaName: "Managers")]
+    public class ProductsController(OnlineShopDbContext context) : Controller
     {
-        private readonly OnlineShopDbContext _context;
+        private readonly OnlineShopDbContext _context = context;
 
-        public ProductsController(OnlineShopDbContext context)
-        {
-            _context = context;
-        }
-
-        // GET: Products
+        // GET: Managers/Products
         public async Task<IActionResult> Index()
         {
             var onlineShopDbContext = _context.Products.Include(p => p.Branch);
             return View(await onlineShopDbContext.ToListAsync());
         }
 
-        // GET: Products/Details/5
+        // GET: Managers/Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,31 +32,32 @@
             return View(product);
         }
 
-        // GET: Products/Create
+        // GET: Managers/Products/Create
         public IActionResult Create()
         {
+
             ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "BranchName");
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Managers/Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,BranchId,ProductName,ImageSrc,Size,Color,Discount,ClothType,Description,ProducingCountry,Amount,Price")] Product product)
         {
-           // if (ModelState.IsValid)
-          //  {
+            if (ModelState.IsValid)
+            {
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-          //  }
-          //  ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "Address", product.BranchId);
-           // return View(product);
+            }
+            ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "BranchName", product.BranchId);
+            return View(product);
         }
 
-        // GET: Products/Edit/5
+        // GET: Managers/Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,11 +70,11 @@
             {
                 return NotFound();
             }
-            ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "Address", product.BranchId);
+            ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "BranchName", product.BranchId);
             return View(product);
         }
 
-        // POST: Products/Edit/5
+        // POST: Managers/Products/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -108,11 +106,11 @@
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "Address", product.BranchId);
+            ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "BranchName", product.BranchId);
             return View(product);
         }
 
-        // GET: Products/Delete/5
+        // GET: Managers/Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -131,7 +129,7 @@
             return View(product);
         }
 
-        // POST: Products/Delete/5
+        // POST: Managers/Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

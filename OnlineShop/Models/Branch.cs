@@ -18,9 +18,6 @@
         public required string PostalCode { get; set; }
 
         [Required]
-        public required string Address { get; set; }
-
-        [Required]
         [DataType(DataType.PhoneNumber)]
         public required string PhoneNumber { get; set; }
 

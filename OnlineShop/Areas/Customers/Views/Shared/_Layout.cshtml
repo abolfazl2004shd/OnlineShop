@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <partial name="MetaTags" />
+    <title>OnlineShop</title>
+    <partial name="Links" />
+</head>
+<body>
+
+    @RenderBody()
+
+    <partial name="Header" />
+
+    <partial name="Scripts" />
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

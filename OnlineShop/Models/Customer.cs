@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace OnlineShop.Models
+﻿namespace OnlineShop.Models
 {
     public class Customer
     {
@@ -19,7 +17,7 @@ namespace OnlineShop.Models
         public required string Sex { get; set; }
 
         [Required]
-        public required decimal Wallet {  get; set; }
+        public required decimal Wallet { get; set; }
 
         [DataType(DataType.EmailAddress)]
         public string? EmailAddress { get; set; }

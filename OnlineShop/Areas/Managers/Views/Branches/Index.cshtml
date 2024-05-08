@@ -25,6 +25,15 @@
                 @Html.DisplayNameFor(model => model.PhoneNumber)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plaque)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Shop)
             </th>
             <th></th>
@@ -44,6 +53,15 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plaque)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Shop.Name)

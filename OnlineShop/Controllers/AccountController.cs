@@ -17,68 +17,61 @@
             string UserName = login.UserName;
             string Password = login.Password;
 
-            var user = _context.Customers.SingleOrDefault(
+            var IsManager = _context.Managers.SingleOrDefault(
                 user => user.UserName == UserName && user.Password == Password);
 
-            if (user == null)
+            var IsCustomer = _context.Customers.SingleOrDefault(
+               user => user.UserName == UserName && user.Password == Password);
+
+            if (IsCustomer != null)
             {
-                ModelState.AddModelError(key: nameof(UserName), "Not Found");
-                return View(login);
+                //    if(user == null)
+                //{
+                //        ModelState.AddModelError(key: nameof(UserName), "Not Found");
+                //        return View(login);
+                //    }
+
+                var claims = new List<Claim> {
+            new(ClaimTypes.NameIdentifier , IsCustomer.CustomerId.ToString()),
+            new(ClaimTypes.Name , IsCustomer.UserName),
+            new(ClaimTypes.Name , IsCustomer.UserName)
+            };
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+                var properties = new AuthenticationProperties
+                {
+                    //  IsPersistent = login.RememberMe,
+                };
+
+                await HttpContext.SignInAsync(principal, properties);
+                return RedirectToAction(actionName: "Index", controllerName: "Products", new
+                {
+                    area = "Customers"
+                });
             }
-
-            var claims = new List<Claim> {
-            new(ClaimTypes.NameIdentifier , user.CustomerId.ToString()),
-            new(ClaimTypes.Name , user.UserName)
-            };
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var principal = new ClaimsPrincipal(identity);
-            var properties = new AuthenticationProperties
+            else if (IsManager != null)
             {
-                //  IsPersistent = login.RememberMe,
+                var claims = new List<Claim> {
+            new(ClaimTypes.NameIdentifier , IsManager.ManagerId.ToString()),
+            new(ClaimTypes.Name , IsManager.UserName)
             };
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+                var properties = new AuthenticationProperties
+                {
+                    //  IsPersistent = login.RememberMe,
+                };
 
-            await HttpContext.SignInAsync(principal, properties);
-            return RedirectToAction(actionName: "Index", controllerName: "Home");
+                await HttpContext.SignInAsync(principal, properties);
+                return RedirectToAction(actionName: "Index", controllerName: "Products", new
+                {
+                    area = "Managers"
+                });
+            }
+            return RedirectToAction(actionName: "Login", controllerName: "Account");
         }
         #endregion
 
-
-        #region Register
-
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel register)
-        {
-            if (register.Password != register.ConfirmedPassword)
-            {
-                ModelState.AddModelError(key: nameof(register.ConfirmedPassword), "not equal");
-                return View(register);
-            }
-            Customer customer = new()
-            {
-                UserName = register.UserName,
-                FirstName = register.FirstName,
-                LastName = register.LastName,
-                PhoneNumber = register.PhoneNumber,
-                EmailAddress = register.EmailAddress,
-                SSN = register.SSN,
-                Sex = register.Sex,
-                RegistrationDate = DateTime.Now,
-                Wallet = 1000,
-                Password = register.Password,
-            };
-
-            _context.Entry(customer).State = EntityState.Added;
-            await _context.SaveChangesAsync();
-            return RedirectToAction(actionName: "Index", controllerName: "Home");
-        }
-
-        #endregion
 
         #region Logout
         [Authorize]

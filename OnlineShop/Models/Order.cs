@@ -8,9 +8,6 @@
         public int BasketId { get; set; }
 
         [Required]
-        public required string Address { get; set; }
-
-        [Required]
         public required string PostalCode { get; set; }
 
         [Required]
