@@ -35,5 +35,11 @@
         [ForeignKey(nameof(BasketId))]
         [Required]
         public Basket Basket { get; set; }
+
+        public decimal GetFinalPrice()
+        {
+            decimal finalPrice = Basket.GetFinalPrice() + ShippingPrice;
+            return finalPrice;
+        }
     }
 }

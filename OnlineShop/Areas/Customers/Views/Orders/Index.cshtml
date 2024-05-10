@@ -30,9 +30,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Plaque)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BasketId)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -62,7 +59,7 @@
                     @Html.DisplayFor(modelItem => item.Plaque)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.BasketId)
+                    <a class="btn btn-primary" asp-area="Customers" asp-controller="Orders" asp-action="Details" asp-route-orderId="@item.OrderId">Details</a>
                 </td>
             </tr>
         }

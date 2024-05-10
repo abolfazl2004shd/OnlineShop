@@ -102,6 +102,7 @@
         {
             int customerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
             Basket? basket = await _context.Baskets.Include(b => b.Items).ThenInclude(b => b.Product).FirstAsync(b => b.CustomerId == customerId && !b.IsFinalize);
+
             Order order = new()
             {
                 BasketId = basket.BasketId,
@@ -113,7 +114,8 @@
                 Plaque = address.Plaque,
                 ShippingPrice = 30,
             };
-             _context.Baskets.Find(basket.BasketId).IsFinalize = true;
+            basket.IsFinalize = true;
+            _context.Entry(basket).State = EntityState.Modified;
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
