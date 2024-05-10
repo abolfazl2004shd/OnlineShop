@@ -14,10 +14,16 @@
 
         [ForeignKey(nameof(ProductId))]
         [Required]
-        public required Product Product { get; set; }
+        public Product Product { get; set; }
 
         [ForeignKey(nameof(BasketId))]
         [Required]
-        public required Basket Basket { get; set; }
+        public Basket Basket { get; set; }
+
+
+        public decimal GetPrice()
+        {
+            return Product.GetFinalPrice() * Quantity;
+        }
     }
 }

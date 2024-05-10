@@ -9,8 +9,9 @@
         // GET: Managers/Products
         public async Task<IActionResult> Index()
         {
-            var onlineShopDbContext = _context.Products.Include(p => p.Branch);
-            return View(await onlineShopDbContext.ToListAsync());
+            int managerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
+            var products = _context.Products.Include(p => p.Branch).ThenInclude(p => p.Shop).Where(p => p.Branch.Shop.ManagerId == managerId);
+            return View(await products.ToListAsync());
         }
 
         // GET: Managers/Products/Details/5
@@ -47,14 +48,14 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,BranchId,ProductName,ImageSrc,Size,Color,Discount,ClothType,Description,ProducingCountry,Amount,Price")] Product product)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(product);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "BranchName", product.BranchId);
-            return View(product);
+            //     if (ModelState.IsValid)
+            //   {
+            _context.Add(product);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+            //    }
+            //  ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "BranchName", product.BranchId);
+            //    return View(product);
         }
 
         // GET: Managers/Products/Edit/5

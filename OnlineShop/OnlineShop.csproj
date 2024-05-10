@@ -23,7 +23,6 @@
   <ItemGroup>
     <Folder Include="Areas\Customers\Data\" />
     <Folder Include="Areas\Customers\Models\" />
-    <Folder Include="Areas\Customers\Views\Account\" />
     <Folder Include="Areas\Managers\Data\" />
     <Folder Include="Areas\Managers\Models\" />
     <Folder Include="wwwroot\js\" />

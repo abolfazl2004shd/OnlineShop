@@ -17,10 +17,10 @@
             string UserName = login.UserName;
             string Password = login.Password;
 
-            var IsManager = _context.Managers.SingleOrDefault(
+            Manager? IsManager = _context.Managers.FirstOrDefault(
                 user => user.UserName == UserName && user.Password == Password);
 
-            var IsCustomer = _context.Customers.SingleOrDefault(
+            Customer? IsCustomer = _context.Customers.FirstOrDefault(
                user => user.UserName == UserName && user.Password == Password);
 
             if (IsCustomer != null)

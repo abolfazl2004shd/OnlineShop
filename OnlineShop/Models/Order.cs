@@ -34,6 +34,6 @@
 
         [ForeignKey(nameof(BasketId))]
         [Required]
-        public required Basket Basket { get; set; }
+        public Basket Basket { get; set; }
     }
 }

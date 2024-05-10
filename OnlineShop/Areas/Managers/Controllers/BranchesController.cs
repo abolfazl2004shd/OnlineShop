@@ -9,8 +9,10 @@
         // GET: Managers/Branches
         public async Task<IActionResult> Index()
         {
-            var onlineShopDbContext = _context.Branches.Include(b => b.Shop);
-            return View(await onlineShopDbContext.ToListAsync());
+            int managerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
+            var branches = _context.Branches.Include(b => b.Shop).Where(b => b.Shop.ManagerId == managerId);
+
+            return View(await branches.ToListAsync());
         }
 
         // GET: Managers/Branches/Details/5

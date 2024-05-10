@@ -45,5 +45,15 @@
 
         public List<Comment>? Comments { get; set; }
 
+
+        public decimal GetDiscount()
+        {
+            return (Discount * Price) / 100;
+        }
+        public decimal GetFinalPrice()
+        {
+            return Price - GetDiscount();
+        }
+
     }
 }

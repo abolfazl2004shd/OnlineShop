@@ -32,7 +32,7 @@
 
 
         [ForeignKey(nameof(ShopId))]
-        public required Shop Shop { get; set; }
+        public Shop Shop { get; set; }
 
         public List<Product>? Products { get; set; }
     }

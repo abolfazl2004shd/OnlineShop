@@ -9,7 +9,7 @@
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var products = _context.Products.Include(p => p.Branch);
+            var products = _context.Products.Include(p => p.Branch.Shop);
             return View(await products.ToListAsync());
         }
 
@@ -23,12 +23,12 @@
 
             var product = await _context.Products
                 .Include(p => p.Branch)
-                .FirstOrDefaultAsync(m => m.ProductId == id);
+                .FirstOrDefaultAsync(product => product.ProductId == id);
             if (product == null)
             {
                 return NotFound();
             }
-            return View(product);
+            return View(viewName: "Details", model: product);
         }
     }
 }

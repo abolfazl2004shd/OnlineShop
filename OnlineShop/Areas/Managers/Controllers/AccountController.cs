@@ -10,7 +10,7 @@
         [HttpGet]
         public IActionResult Register()
         {
-            return View();
+            return View(viewName: "Register");
         }
 
         [HttpPost]
@@ -36,9 +36,9 @@
 
             _context.Entry(manager).State = EntityState.Added;
             await _context.SaveChangesAsync();
-            return RedirectToAction(actionName: "Index", controllerName: "Home", new
+            return RedirectToAction(actionName: "Login", controllerName: "Account", new
             {
-                area = "Managers"
+                area = ""
             });
         }
 

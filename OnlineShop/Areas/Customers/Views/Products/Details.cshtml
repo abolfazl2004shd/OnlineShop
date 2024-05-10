@@ -1,1 +1,6 @@
-﻿
+﻿@model Product
+<div class="align-content-center">
+    <h1>@Model.ProductName</h1>
+    <p>@Model.Description</p>
+    <a class="btn btn-primary" asp-area="Customers" asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id="@Model.ProductId">Add To Basket</a>
+</div>
