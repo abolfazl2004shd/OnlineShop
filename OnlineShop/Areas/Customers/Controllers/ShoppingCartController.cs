@@ -70,7 +70,7 @@
         public async Task<IActionResult> Cart()
         {
             int customerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
-            Basket? basket = await _context.Baskets.Include(b => b.Items).ThenInclude(b => b.Product).FirstAsync(b => b.CustomerId == customerId);
+            Basket? basket = await _context.Baskets.Include(b => b.Items).ThenInclude(b => b.Product).FirstOrDefaultAsync(b => b.CustomerId == customerId && !b.IsFinalize);
             return View(viewName: "Cart", model: basket);
         }
 
@@ -82,18 +82,45 @@
             {
 
             }
-            _context.Entry(item).State = EntityState.Deleted;
-            _context.SaveChangesAsync();
+            _context.Items.Remove(item);
+            await _context.SaveChangesAsync();
             return RedirectToAction(actionName: "Cart", controllerName: "ShoppingCart", new
             {
                 area = "Customers"
             });
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Checkout(int? basketId)
-        //{
-          
-        //}
+        [HttpGet]
+        public IActionResult Checkout()
+        {
+            return View(viewName: "Checkout");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Checkout([Bind("City", "Street", "Plaque", "PostalCode")] AddressViewModel address)
+        {
+            int customerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
+            Basket? basket = await _context.Baskets.Include(b => b.Items).ThenInclude(b => b.Product).FirstAsync(b => b.CustomerId == customerId && !b.IsFinalize);
+            Order order = new()
+            {
+                BasketId = basket.BasketId,
+                RegistrationDate = DateTime.Now,
+                DeliveryDate = DateTime.Now.AddDays(3),
+                PostalCode = address.PostalCode,
+                City = address.City,
+                Street = address.Street,
+                Plaque = address.Plaque,
+                ShippingPrice = 30,
+            };
+             _context.Baskets.Find(basket.BasketId).IsFinalize = true;
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(actionName: "Index", controllerName: "Products", new
+            {
+                area = "Customers"
+            });
+        }
     }
 }

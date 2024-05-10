@@ -2,11 +2,15 @@
 {
     [Authorize]
     [Area(areaName: "Customers")]
-    public class OrdersController : Controller
+    public class OrdersController(OnlineShopDbContext _db) : Controller
     {
-        public IActionResult Index()
+        private readonly OnlineShopDbContext _context = _db;
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var orders = await _context.Orders.ToListAsync();
+            return View(viewName: "Index", model: orders);
         }
     }
 }
