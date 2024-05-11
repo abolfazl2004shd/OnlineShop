@@ -6,7 +6,9 @@
     {
         private readonly OnlineShopDbContext _context = context;
 
-        // GET: Managers/Branches
+
+        #region Show All Branches
+
         public async Task<IActionResult> Index()
         {
             int managerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
@@ -15,7 +17,12 @@
             return View(await branches.ToListAsync());
         }
 
-        // GET: Managers/Branches/Details/5
+        #endregion
+
+
+        #region Show Branch In Detailed
+
+        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,7 +41,12 @@
             return View(branch);
         }
 
-        // GET: Managers/Branches/Create
+        #endregion
+
+
+        #region Create New Branch
+
+        [HttpGet]
         public IActionResult Create()
         {
             int managerID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
@@ -42,9 +54,7 @@
             return View();
         }
 
-        // POST: Managers/Branches/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BranchId,ShopId,BranchName,RegistrationDate,PostalCode,PhoneNumber,City,Street,Plaque")] Branch branch)
@@ -59,7 +69,12 @@
             //  return View(branch);
         }
 
-        // GET: Managers/Branches/Edit/5
+        #endregion
+
+
+        #region Edit Branch
+
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,9 +92,7 @@
             return View(branch);
         }
 
-        // POST: Managers/Branches/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("BranchId,ShopId,BranchName,RegistrationDate,PostalCode,PhoneNumber,City,Street,Plaque")] Branch branch)
@@ -117,7 +130,12 @@
             return View(branch);
         }
 
-        // GET: Managers/Branches/Delete/5
+        #endregion
+
+
+        #region Delete Branch
+
+        [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,7 +154,6 @@
             return View(branch);
         }
 
-        // POST: Managers/Branches/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -155,6 +172,6 @@
         {
             return _context.Branches.Any(e => e.BranchId == id);
         }
-
+        #endregion
     }
 }

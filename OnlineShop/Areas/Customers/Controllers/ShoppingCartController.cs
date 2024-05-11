@@ -6,6 +6,9 @@
     {
         private readonly OnlineShopDbContext _context = _db;
 
+
+        #region Insert Item To Cart
+
         [HttpGet]
         public async Task<IActionResult> AddToCart(int? id)
         {
@@ -65,14 +68,25 @@
                 area = "Customers"
             });
         }
+        #endregion
+
+
+        #region Display Shopping Cart
 
         [HttpGet]
         public async Task<IActionResult> Cart()
         {
             int customerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
-            Basket? basket = await _context.Baskets.Include(b => b.Items).ThenInclude(b => b.Product).FirstOrDefaultAsync(b => b.CustomerId == customerId && !b.IsFinalize);
+            Basket? basket = await _context.Baskets
+                .Include(b => b.Items)
+                .ThenInclude(b => b.Product)
+                .FirstOrDefaultAsync(b => b.CustomerId == customerId && !b.IsFinalize);
             return View(viewName: "Cart", model: basket);
         }
+        #endregion
+
+
+        #region Remove Item From Cart
 
         [HttpGet]
         public async Task<IActionResult> RemoveFromCart(int? itemId)
@@ -89,12 +103,17 @@
                 area = "Customers"
             });
         }
+        #endregion
+
+
+        #region Checkout
 
         [HttpGet]
         public IActionResult Checkout()
         {
             return View(viewName: "Checkout");
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -124,5 +143,6 @@
                 area = "Customers"
             });
         }
+        #endregion
     }
 }

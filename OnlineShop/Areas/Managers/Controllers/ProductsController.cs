@@ -6,15 +6,20 @@
     {
         private readonly OnlineShopDbContext _context = context;
 
-        // GET: Managers/Products
+
+        #region Show All Products
+
         public async Task<IActionResult> Index()
         {
             int managerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
             var products = _context.Products.Include(p => p.Branch).ThenInclude(p => p.Shop).Where(p => p.Branch.Shop.ManagerId == managerId);
             return View(await products.ToListAsync());
         }
+        #endregion
+        
+        
+        #region Show Product In Detailed
 
-        // GET: Managers/Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,7 +38,12 @@
             return View(product);
         }
 
-        // GET: Managers/Products/Create
+        #endregion
+      
+        
+        #region Create New Product
+
+        [HttpGet]
         public IActionResult Create()
         {
 
@@ -41,9 +51,7 @@
             return View();
         }
 
-        // POST: Managers/Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,BranchId,ProductName,ImageSrc,Size,Color,Discount,ClothType,Description,ProducingCountry,Amount,Price")] Product product)
@@ -58,7 +66,12 @@
             //    return View(product);
         }
 
-        // GET: Managers/Products/Edit/5
+        #endregion
+
+
+        #region Edit Product
+
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -75,9 +88,7 @@
             return View(product);
         }
 
-        // POST: Managers/Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,BranchId,ProductName,ImageSrc,Size,Color,Discount,ClothType,Description,ProducingCountry,Amount,Price")] Product product)
@@ -111,7 +122,12 @@
             return View(product);
         }
 
-        // GET: Managers/Products/Delete/5
+        #endregion
+       
+        
+        #region Delete Product
+
+        [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,7 +146,6 @@
             return View(product);
         }
 
-        // POST: Managers/Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -145,6 +160,8 @@
             return RedirectToAction(nameof(Index));
         }
 
+        #endregion
+     
         private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.ProductId == id);

@@ -41,5 +41,10 @@
             decimal finalPrice = Basket.GetFinalPrice() + ShippingPrice;
             return finalPrice;
         }
+        public string GetAddress()
+        {
+            string address = $"{City} City, {Street} Street, {Plaque} Plaque";
+            return address;
+        }
     }
 }

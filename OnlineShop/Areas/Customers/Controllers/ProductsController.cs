@@ -6,12 +6,18 @@
     {
         private readonly OnlineShopDbContext _context = _db;
 
+        #region Show All Products
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var products = _context.Products.Include(p => p.Branch.Shop);
-            return View(await products.ToListAsync());
+            var products = await _context.Products.Include(p => p.Branch.Shop).ToListAsync();
+            return View(viewName: nameof(Details), model: products);
         }
+        #endregion
+
+
+        #region Show Product in Detailed
 
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
@@ -28,7 +34,8 @@
             {
                 return NotFound();
             }
-            return View(viewName: "Details", model: product);
+            return View(viewName: nameof(Details), model: product);
         }
+        #endregion
     }
 }

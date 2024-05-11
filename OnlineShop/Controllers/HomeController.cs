@@ -4,17 +4,16 @@
     {
         private readonly OnlineShopDbContext _context = _db;
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-        public async Task<IActionResult> ShowAllProducts()
+        [HttpGet]
+
+        #region Show All Products
+
+        public async Task<IActionResult> Index()
         {
             var AllProducts = await _context.Products.ToListAsync();
             return View(AllProducts);
         }
+        #endregion
 
-        // int customerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
-        // Customer? customer = _context.Customers.Find(customerId);
     }
 }
