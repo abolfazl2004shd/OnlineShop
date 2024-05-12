@@ -1,4 +1,4 @@
-﻿ @model IEnumerable<Product>
+﻿ @model List<Product>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,7 +14,7 @@
     <div class="row">
         @foreach (var item in Model)
         {
-            <partial name="ProductBox" model="@item" />
+            <partial name="_PartialProductBox" model="@item" />
         }
     </div>
 

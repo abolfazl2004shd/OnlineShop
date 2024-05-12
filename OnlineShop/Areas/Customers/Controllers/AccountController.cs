@@ -37,9 +37,9 @@
 
             _context.Entry(customer).State = EntityState.Added;
             await _context.SaveChangesAsync();
-            return RedirectToAction(actionName: "Login", controllerName: "Account" , new
+            return RedirectToAction(actionName: "Login", controllerName: "Account", new
             {
-                area=""
+                area = ""
             });
         }
 

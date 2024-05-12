@@ -12,10 +12,12 @@
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            int customerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
             var orders = await _context.Orders
                 .Include(o => o.Basket)
                 .ThenInclude(o => o.Items)
                 .ThenInclude(o => o.Product)
+                .Where(o => o.Basket.CustomerId == customerId)
                 .ToListAsync();
             return View(viewName: nameof(Index), model: orders);
         }
