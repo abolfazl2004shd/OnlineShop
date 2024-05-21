@@ -47,7 +47,8 @@
         public IActionResult Create()
         {
 
-            ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "BranchName");
+            
+        ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "BranchName");
             return View();
         }
 

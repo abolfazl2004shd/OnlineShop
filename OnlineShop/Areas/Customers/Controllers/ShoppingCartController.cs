@@ -81,6 +81,7 @@
                 .Include(b => b.Items)
                 .ThenInclude(b => b.Product)
                 .FirstOrDefaultAsync(b => b.CustomerId == customerId && !b.IsFinalize);
+            
             return View(viewName: "Cart", model: basket);
         }
         #endregion
@@ -125,7 +126,7 @@
                 .ThenInclude(b => b.Product)
                 .FirstAsync(b => b.CustomerId == customerId && !b.IsFinalize);
 
-            
+
             foreach (var item in basket.Items)
             {
                 _context.Products
@@ -144,11 +145,13 @@
                 Plaque = address.Plaque,
                 ShippingPrice = 30,
             };
-
-            basket.IsFinalize = true;
             _context.Entry(basket).State = EntityState.Modified;
-            //  _context.Orders.Add(order);
             _context.Orders.Entry(order).State = EntityState.Added;
+            await _context.SaveChangesAsync();
+            _context.Customers.Find(customerId).Wallet -= order.GetFinalPrice();
+            basket.IsFinalize = true;
+            //  _context.Orders.Add(order);
+            //  _context.Add(order);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(actionName: nameof(Index), controllerName: "Products", new

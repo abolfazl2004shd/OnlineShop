@@ -9,12 +9,16 @@
 
         #region Show All Branches
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             int managerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
-            var branches = _context.Branches.Include(b => b.Shop).Where(b => b.Shop.ManagerId == managerId);
+            var branches = await _context.Branches
+                .Include(b => b.Shop)
+                .Where(b => b.Shop.ManagerId == managerId)
+                .ToListAsync();
 
-            return View(await branches.ToListAsync());
+            return View(viewName: nameof(Index), model: branches);
         }
 
         #endregion
@@ -32,13 +36,13 @@
 
             var branch = await _context.Branches
                 .Include(b => b.Shop)
-                .FirstOrDefaultAsync(m => m.BranchId == id);
+                .FirstOrDefaultAsync(b => b.BranchId == id);
             if (branch == null)
             {
                 return NotFound();
             }
 
-            return View(branch);
+            return View(viewName: nameof(Details), model: branch);
         }
 
         #endregion
@@ -51,7 +55,7 @@
         {
             int managerID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
             ViewData["ShopId"] = new SelectList(_context.Shops.Where(shop => shop.ManagerId == managerID).ToList(), "ShopId", "Name");
-            return View();
+            return View(viewName: nameof(Create));
         }
 
 
@@ -89,7 +93,7 @@
             }
             int managerID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
             ViewData["ShopId"] = new SelectList(_context.Shops.Where(shop => shop.ManagerId == managerID).ToList(), "ShopId", "Name");
-            return View(branch);
+            return View(viewName: nameof(Edit), model: branch);
         }
 
 
@@ -151,7 +155,7 @@
                 return NotFound();
             }
 
-            return View(branch);
+            return View(viewName: nameof(Delete));
         }
 
         [HttpPost, ActionName("Delete")]

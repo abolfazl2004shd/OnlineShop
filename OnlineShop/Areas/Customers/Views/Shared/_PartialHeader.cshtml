@@ -1,53 +1,41 @@
-﻿<nav class="navbar navbar-expand-lg fixed-top navbar-scroll shadow-0" style="background-color: #ffede7;">
-    <div class="container">
-        <a class="navbar-brand" href="#">our jewelry</a>
-        <button class="navbar-toggler ps-0" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
-                aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="d-flex justify-content-start align-items-center">
-                <i class="fas fa-bars"></i>
-            </span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarExample01">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-
-
-
+﻿<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top navbar-scroll">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="#!">Shop</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" asp-area="Customers" asp-controller="Products" asp-action="Index">Products</a></li>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <li class="nav-item active">
-                        <a class="nav-link px-3 login-user-name" asp-area="Customers" asp-controller="Products" asp-action="Index">Products</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link px-3 login-user-name" asp-area="Customers" asp-controller="Orders" asp-action="Index">Orders</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link px-3" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                    </li>
 
-                    <li class="nav-item active">
-                        <a class="nav-link px-3 login-user-name" asp-area="Customers" asp-controller="ShoppingCart" asp-action="Cart">Basket</a>
-
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link px-3 login-user-name">@User.Identity.Name Welcome</a>
-
-                    </li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" asp-area="Customers" asp-controller="Orders" asp-action="Index">Orders</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
                 }
-                else
-                {
-                    <li class="nav-item">
-                        <a class="nav-link px-3" asp-area="Managers" asp-controller="Account" asp-action="Register">Managers Register</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link px-3" asp-area="" asp-controller="Account" asp-action="Login">Users Login</a>
-                    </li>
-                }
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">All Products</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                        <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                    </ul>
 
+                </li>
             </ul>
+            @if (User.Identity.IsAuthenticated)
+            {
 
+                <a class="btn btn-outline-dark" asp-area="Customers" asp-controller="ShoppingCart" asp-action="Cart">
+                    <i class="bi-cart-fill me-1"></i>
+                    Cart
+                    <span class="badge bg-dark text-white ms-1 rounded-pill">
+                        0
+                    </span>
+
+                </a>
+            }
 
         </div>
     </div>
 </nav>
-
