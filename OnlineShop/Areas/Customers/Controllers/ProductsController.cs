@@ -12,6 +12,7 @@
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
+            ViewBag.ItemsCount = 10;
             var products = await _context.Products
                 .Include(p => p.Branch.Shop)
                 .Where(p => p.Amount > 0)

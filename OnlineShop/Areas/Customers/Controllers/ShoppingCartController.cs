@@ -81,7 +81,7 @@
                 .Include(b => b.Items)
                 .ThenInclude(b => b.Product)
                 .FirstOrDefaultAsync(b => b.CustomerId == customerId && !b.IsFinalize);
-            
+
             return View(viewName: "Cart", model: basket);
         }
         #endregion
@@ -143,15 +143,13 @@
                 City = address.City,
                 Street = address.Street,
                 Plaque = address.Plaque,
-                ShippingPrice = 30,
+                ShippingPrice = 25,
             };
             _context.Entry(basket).State = EntityState.Modified;
             _context.Orders.Entry(order).State = EntityState.Added;
             await _context.SaveChangesAsync();
             _context.Customers.Find(customerId).Wallet -= order.GetFinalPrice();
             basket.IsFinalize = true;
-            //  _context.Orders.Add(order);
-            //  _context.Add(order);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(actionName: nameof(Index), controllerName: "Products", new

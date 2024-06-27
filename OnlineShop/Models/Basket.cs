@@ -1,5 +1,6 @@
 ﻿namespace OnlineShop.Models
 {
+    [Table(name: "Baskets")]
     public class Basket
     {
         [Key]
@@ -19,7 +20,7 @@
         public List<Item> Items { get; set; }
         public Order? Order { get; set; }
 
-        public decimal GetDiscount()
+        public decimal GetFinalDiscount()
         {
             decimal initialPrice = Items.Sum(item => item.Product.GetDiscount() * item.Quantity);
             return initialPrice;
@@ -29,14 +30,14 @@
             decimal discount = Items.Sum(item => item.Product.Price * item.Quantity);
             return discount;
         }
-        public decimal GetTax()
+        public decimal GetTax(int Coefficient)
         {
-            decimal tax = GetInitialPrice() * 9 / 100;
+            decimal tax = (GetInitialPrice() - GetFinalDiscount()) * Coefficient / 100;
             return tax;
         }
         public decimal GetFinalPrice()
         {
-            decimal finalPrice = GetInitialPrice() + GetTax() - GetDiscount();
+            decimal finalPrice = GetInitialPrice() - GetFinalDiscount() + GetTax(9);
             return finalPrice;
         }
     }
