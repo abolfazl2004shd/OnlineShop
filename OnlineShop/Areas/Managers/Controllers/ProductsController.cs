@@ -12,12 +12,16 @@
         public async Task<IActionResult> Index()
         {
             int managerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
-            var products = _context.Products.Include(p => p.Branch).ThenInclude(p => p.Shop).Where(p => p.Branch.Shop.ManagerId == managerId);
-            return View(await products.ToListAsync());
+            var products = await _context.Products
+                .Include(p => p.Branch)
+                .ThenInclude(p => p.Shop)
+                .Where(p => p.Branch.Shop.ManagerId == managerId)
+                .ToListAsync();
+            return View(viewName: nameof(Index), model: products);
         }
         #endregion
-        
-        
+
+
         #region Show Product In Detailed
 
         public async Task<IActionResult> Details(int? id)
@@ -35,24 +39,23 @@
                 return NotFound();
             }
 
-            return View(product);
+            return View(viewName: nameof(Details), model: product);
         }
 
         #endregion
-      
-        
+
+
         #region Create New Product
 
         [HttpGet]
+
         public IActionResult Create()
         {
-
-            
-        ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "BranchName");
-            return View();
+            ViewData["BranchName"] = new SelectList(_context.Branches, "BranchId", "BranchName");
+            return View(viewName: nameof(Create));
         }
 
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,BranchId,ProductName,ImageSrc,Size,Color,Discount,ClothType,Description,ProducingCountry,Amount,Price")] Product product)
@@ -61,7 +64,11 @@
             //   {
             _context.Add(product);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return RedirectToAction(actionName: nameof(Index), controllerName: "Products", new
+            {
+                area = "Managers",
+            });
             //    }
             //  ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "BranchName", product.BranchId);
             //    return View(product);
@@ -86,10 +93,10 @@
                 return NotFound();
             }
             ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "BranchName", product.BranchId);
-            return View(product);
+            return View(viewName: nameof(Edit), model: product);
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,BranchId,ProductName,ImageSrc,Size,Color,Discount,ClothType,Description,ProducingCountry,Amount,Price")] Product product)
@@ -117,15 +124,18 @@
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return View(viewName: nameof(Index));
             }
             ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "BranchName", product.BranchId);
-            return View(product);
+            return RedirectToAction(actionName: nameof(Index), controllerName: "Branches", new
+            {
+                area = "Managers",
+            });
         }
 
         #endregion
-       
-        
+
+
         #region Delete Product
 
         [HttpGet]
@@ -144,7 +154,7 @@
                 return NotFound();
             }
 
-            return View(product);
+            return View(viewName: nameof(Delete), model: product);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -158,11 +168,14 @@
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(actionName: nameof(Index), controllerName: "Products", new
+            {
+                area = "Managers",
+            });
         }
 
         #endregion
-     
+
         private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.ProductId == id);

@@ -53,21 +53,27 @@
         [HttpGet]
         public IActionResult Create()
         {
-            int managerID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
-            ViewData["ShopId"] = new SelectList(_context.Shops.Where(shop => shop.ManagerId == managerID).ToList(), "ShopId", "Name");
+            //  int managerID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
+            //   ViewData["ShopId"] = new SelectList(_context.Shops.Where(shop => shop.ManagerId == managerID).ToList(), "ShopId", "Name");
             return View(viewName: nameof(Create));
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BranchId,ShopId,BranchName,RegistrationDate,PostalCode,PhoneNumber,City,Street,Plaque")] Branch branch)
+        public async Task<IActionResult> Create([Bind("BranchName,RegistrationDate,PostalCode,PhoneNumber,City,Street,Plaque")] Branch branch)
         {
             //      if (ModelState.IsValid)
             //    {
+            int managerID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
+            var shop = _context.Shops.Where(shop => shop.ManagerId == managerID).FirstOrDefault();
+            branch.ShopId = shop.ShopId;
             _context.Add(branch);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(actionName: nameof(Index), controllerName: "Branches", new
+            {
+                area = "Managers",
+            });
             //  }
             // //  ViewData["ShopId"] = new SelectList(_context.Shops, "ShopId", "Name", branch.ShopId);
             //  return View(branch);
@@ -91,30 +97,26 @@
             {
                 return NotFound();
             }
-            int managerID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
-            ViewData["ShopId"] = new SelectList(_context.Shops.Where(shop => shop.ManagerId == managerID).ToList(), "ShopId", "Name");
+            // int managerID = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
+            // ViewData["ShopId"] = new SelectList(_context.Shops.Where(shop => shop.ManagerId == managerID).ToList(), "ShopId", "Name");
             return View(viewName: nameof(Edit), model: branch);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BranchId,ShopId,BranchName,RegistrationDate,PostalCode,PhoneNumber,City,Street,Plaque")] Branch branch)
+        public async Task<IActionResult> Edit([Bind("ShopId,BranchId,BranchName,RegistrationDate,PostalCode,PhoneNumber,City,Street,Plaque")] Branch branch)
         {
-            if (id != branch.BranchId)
-            {
-                return NotFound();
-            }
 
             //   if (ModelState.IsValid)
             //    {
             try
             {
-                _context.Entry(branch).State = EntityState.Modified;
+                _context.Update(branch);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(actionName: "Details", controllerName: "Branches", new
+                return RedirectToAction(actionName: nameof(Index), controllerName: "Branches", new
                 {
-                    area = "Managers"
+                    area = "Managers",
                 });
             }
             catch (DbUpdateConcurrencyException)
@@ -155,7 +157,7 @@
                 return NotFound();
             }
 
-            return View(viewName: nameof(Delete));
+            return View(viewName: nameof(Delete), model: branch);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -169,7 +171,10 @@
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(actionName: nameof(Index), controllerName: "Branches", new
+            {
+                area = "Managers",
+            });
         }
 
         private bool BranchExists(int id)

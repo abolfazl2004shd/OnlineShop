@@ -112,7 +112,7 @@
         [HttpGet]
         public IActionResult Checkout()
         {
-            return View(viewName: "Checkout");
+            return View(viewName: nameof(Checkout));
         }
 
 

@@ -49,12 +49,12 @@ app.UseAuthorization();
 
 #region Mapping Route
 app.MapAreaControllerRoute(
-    name: "areas",
+    name: "area01",
     areaName: "Managers",
     pattern: "Managers/{controller=Managers}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
-    name: "areass",
+    name: "area02",
     areaName: "Customers",
     pattern: "Customers/{controller=Managers}/{action=Index}/{id?}");
 

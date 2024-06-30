@@ -1,4 +1,4 @@
-﻿@model OnlineShop.Models.Branch
+﻿@model Branch
 
 @{
     ViewData["Title"] = "Details";
@@ -61,6 +61,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.BranchId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-area="Managers" asp-controller="Branches" asp-action="Edit" asp-route-id="@Model?.BranchId" class="btn btn-warning">Edit</a> |
+    <a asp-area="Managers" asp-asp-controller="Branches" asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
