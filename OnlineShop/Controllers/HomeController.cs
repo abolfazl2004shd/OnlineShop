@@ -10,8 +10,11 @@
 
         public async Task<IActionResult> Index()
         {
-            var AllProducts = await _context.Products.ToListAsync();
-            return View(AllProducts);
+            var products = await _context.Products
+               .Include(p => p.Branch.Shop)
+               .Where(p => p.Amount > 0)
+               .ToListAsync();
+            return View(viewName: nameof(Index), model: products);
         }
         #endregion
 

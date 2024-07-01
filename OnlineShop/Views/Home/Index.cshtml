@@ -1,1 +1,23 @@
-﻿
+﻿@model List<Product>
+
+
+
+
+<h1>Products</h1>
+
+
+
+<div class="text-center">
+
+    <hr />
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <partial name="_PartialProductBox" model="@item" />
+        }
+    </div>
+
+</div>
+
+
+
