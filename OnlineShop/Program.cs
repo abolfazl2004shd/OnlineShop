@@ -2,6 +2,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 #region DataBase System Management
 
@@ -48,6 +49,7 @@ app.UseAuthorization();
 
 
 #region Mapping Route
+app.MapRazorPages();
 app.MapAreaControllerRoute(
     name: "area01",
     areaName: "Managers",

@@ -14,13 +14,13 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" asp-area="Customers" asp-controller="ShoppingCart" asp-action="Cart">Cart</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li> 
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
+                    <li class="nav-item active">
+                        <a class="nav-link px-3 login-user-name" style="color:red;font-weight:600;">@User.Identity.Name Welcome</a>
+                    </li>
                 }
                 else
                 {
-                    @*  <li class="nav-item">
-                <a class="nav-link active" asp-area="Customers" asp-controller="Account" asp-action="Index">Products</a>
-                </li> *@
                     <li class="nav-item active">
                         <a class="nav-link active" asp-area="" asp-controller="Account" asp-action="Login">Users Login</a>
                     </li>
