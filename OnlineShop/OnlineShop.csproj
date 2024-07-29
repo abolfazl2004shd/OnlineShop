@@ -17,7 +17,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,7 +25,7 @@
     <Folder Include="Areas\Customers\Models\" />
     <Folder Include="Areas\Managers\Data\" />
     <Folder Include="Areas\Managers\Models\" />
-    <Folder Include="wwwroot\js\" />
+    <Folder Include="wwwroot\lib\bootstrap\dist\" />
   </ItemGroup>
 
 </Project>

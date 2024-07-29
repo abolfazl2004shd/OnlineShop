@@ -1,19 +1,48 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <partial name="_PartialMetaTags" />
-    <title>OnlineShop</title>
-    <partial name="_PartialLinks" />
+
+    <partial name="MetaTags" />
+
+    <title>
+        Giftos
+    </title>
+    <partial name="Links" />
 </head>
+
 <body>
+    <div class="hero_area">
+
+        <partial name="Header" />
+
+
+        <partial name="Slider" />
+
+
+    </div>
 
     @RenderBody()
+    <partial name="SavingSection" />
 
-    <partial name="_PartialHeader" />
+    
 
-    <partial name="_PartialScripts" />
+    <partial name="GiftSection" />
 
-    @await RenderSectionAsync("Scripts", required: false)
+
+
+    <partial name="ContactSection" />
+
+
+    <partial name="ClientSection" />
+
+
+    <partial name="InfoSection" />
+
+
+    <partial name="Scripts" />
+
 
 </body>
+
 </html>

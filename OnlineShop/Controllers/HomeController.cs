@@ -1,8 +1,10 @@
-﻿namespace OnlineShop.Controllers
+﻿
+
+namespace OnlineShop.Controllers
 {
-    public class HomeController(OnlineShopDbContext _db) : Controller
+    public class HomeController(OnlineShopDbContext context) : Controller
     {
-        private readonly OnlineShopDbContext _context = _db;
+        private OnlineShopDbContext _context = context;
 
         [HttpGet]
 
@@ -11,9 +13,9 @@
         public async Task<IActionResult> Index()
         {
             var products = await _context.Products
-               .Include(p => p.Branch.Shop)
-               .Where(p => p.Amount > 0)
-               .ToListAsync();
+                .Include(p => p.Branch)
+                .ThenInclude(p => p.Shop)
+                .ToListAsync();
             return View(viewName: nameof(Index), model: products);
         }
         #endregion
