@@ -132,7 +132,7 @@
                 //   }
                 //   return RedirectToAction(nameof(Index));
             }
-            ViewData["ShopId"] = new SelectList(_context.Shops, "ShopId", "Name", branch.ShopId);
+            //ViewData["ShopId"] = new SelectList(_context.Shops, "ShopId", "Name", branch.ShopId);
             return View(branch);
         }
 

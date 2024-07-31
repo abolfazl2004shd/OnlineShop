@@ -15,13 +15,13 @@
                     <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="shop.html">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
                         Shop
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="why.html">
-                        Why Us
+                    <a class="nav-link" asp-area="Customers" asp-controller="Account" asp-action="Register">
+                      Register
                     </a>
                 </li>
                 <li class="nav-item">
@@ -34,7 +34,7 @@
                 </li>
             </ul>
             <div class="user_option">
-                <a href="">
+                <a asp-area="" asp-controller="Account" asp-action="Login">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <span>
                         Login

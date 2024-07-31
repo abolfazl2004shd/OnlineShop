@@ -28,4 +28,32 @@
     <Folder Include="wwwroot\lib\bootstrap\dist\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\CustomerRegister\css\main.css" />
+    <None Include="wwwroot\CustomerRegister\js\global.js" />
+    <None Include="wwwroot\CustomerRegister\vendor\datepicker\daterangepicker.css" />
+    <None Include="wwwroot\CustomerRegister\vendor\datepicker\daterangepicker.js" />
+    <None Include="wwwroot\CustomerRegister\vendor\datepicker\moment.min.js" />
+    <None Include="wwwroot\CustomerRegister\vendor\font-awesome-4.7\css\font-awesome.css" />
+    <None Include="wwwroot\CustomerRegister\vendor\font-awesome-4.7\css\font-awesome.min.css" />
+    <None Include="wwwroot\CustomerRegister\vendor\font-awesome-4.7\fonts\fontawesome-webfont.eot" />
+    <None Include="wwwroot\CustomerRegister\vendor\font-awesome-4.7\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\CustomerRegister\vendor\font-awesome-4.7\fonts\fontawesome-webfont.ttf" />
+    <None Include="wwwroot\CustomerRegister\vendor\font-awesome-4.7\fonts\fontawesome-webfont.woff" />
+    <None Include="wwwroot\CustomerRegister\vendor\font-awesome-4.7\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\CustomerRegister\vendor\font-awesome-4.7\fonts\FontAwesome.otf" />
+    <None Include="wwwroot\CustomerRegister\vendor\font-awesome-4.7\HELP-US-OUT.txt" />
+    <None Include="wwwroot\CustomerRegister\vendor\jquery\jquery.js" />
+    <None Include="wwwroot\CustomerRegister\vendor\jquery\jquery.min.js" />
+    <None Include="wwwroot\CustomerRegister\vendor\mdi-font\css\material-design-iconic-font.css" />
+    <None Include="wwwroot\CustomerRegister\vendor\mdi-font\css\material-design-iconic-font.min.css" />
+    <None Include="wwwroot\CustomerRegister\vendor\mdi-font\fonts\Material-Design-Iconic-Font.eot" />
+    <None Include="wwwroot\CustomerRegister\vendor\mdi-font\fonts\Material-Design-Iconic-Font.svg" />
+    <None Include="wwwroot\CustomerRegister\vendor\mdi-font\fonts\Material-Design-Iconic-Font.ttf" />
+    <None Include="wwwroot\CustomerRegister\vendor\mdi-font\fonts\Material-Design-Iconic-Font.woff" />
+    <None Include="wwwroot\CustomerRegister\vendor\mdi-font\fonts\Material-Design-Iconic-Font.woff2" />
+    <None Include="wwwroot\CustomerRegister\vendor\select2\select2.min.css" />
+    <None Include="wwwroot\CustomerRegister\vendor\select2\select2.min.js" />
+  </ItemGroup>
+
 </Project>

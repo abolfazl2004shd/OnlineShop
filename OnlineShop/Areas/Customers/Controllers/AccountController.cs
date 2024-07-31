@@ -21,6 +21,11 @@
                 ModelState.AddModelError(key: nameof(register.ConfirmedPassword), "not equal");
                 return View(register);
             }
+
+            if (!ModelState.IsValid)
+            {
+                return View(register);
+            }
             Customer customer = new()
             {
                 UserName = register.UserName,
