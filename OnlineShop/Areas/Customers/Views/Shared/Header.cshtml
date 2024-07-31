@@ -1,0 +1,48 @@
+﻿<header class="header_section">
+    <nav class="navbar navbar-expand-lg custom_nav-container ">
+        <a class="navbar-brand" href="index.html">
+            <span>
+                Giftos
+            </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav  ">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">@User.Identity.Name<span class="sr-only"> Welcome</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="Customers" asp-controller="Products" asp-action="Index">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="Customers" asp-controller="Orders" asp-action="Index">
+                      Orders
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="Customers" asp-controller="ShoppingCart" asp-action="Cart">
+                        Cart
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">
+                    Logout
+                    </a>
+                </li>
+               
+            </ul>
+            
+                <form class="form-inline ">
+                    <button class="btn nav_search-btn" type="submit">
+                      
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>

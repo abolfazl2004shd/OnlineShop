@@ -8,5 +8,10 @@
             string convertedDate = $"{calendar.GetYear(date)}/{calendar.GetMonth(date)}/{calendar.GetDayOfMonth(date)}";
             return convertedDate;
         }
+        public static string FormatDecimal(this decimal value)
+        {
+            string result = value.ToString(".##");
+            return result;
+        }
     }
 }

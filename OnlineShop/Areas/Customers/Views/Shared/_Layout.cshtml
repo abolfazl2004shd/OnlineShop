@@ -1,19 +1,41 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <partial name="_PartialMetaTags" />
-    <title>OnlineShop</title>
-    <partial name="_PartialLinks" />
+
+    <partial name="MetaTags" />
+
+    <title>
+        Online Shop
+    </title>
+    <partial name="Links" />
 </head>
+
 <body>
+    <div class="hero_area">
+
+        <partial name="Header" />
+
+
+    
+
+
+    </div>
 
     @RenderBody()
+  
+
     
-    <partial name="_PartialHeader" />
 
-    <partial name="_PartialScripts" />
+ 
 
-    @await RenderSectionAsync("Scripts", required: false)
+
+    <partial name="InfoSection" />
+
+
+    <partial name="Scripts" />
+    @RenderSection("Scripts", required: false)
 
 </body>
+
 </html>

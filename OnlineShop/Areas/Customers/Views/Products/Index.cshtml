@@ -1,21 +1,26 @@
-﻿ @model List<Product>
-
-
-<h1>Products</h1>
+﻿@model List<Product>
 
 
 
-<div class="text-center">
 
-    <hr />
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <partial name="_PartialProductBox" model="@item" />
-        }
+<section class="shop_section layout_padding">
+    <div class="container">
+        <div class="heading_container heading_center">
+            <h2>
+                Latest Products
+            </h2>
+        </div>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <partial name="ProductItem" model="item" />
+            }
+        </div>
+        <div class="btn-box">
+            <a href="">
+                View All Products
+            </a>
+        </div>
     </div>
-
-</div>
-
-
+</section>
 
