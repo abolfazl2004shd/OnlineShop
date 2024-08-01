@@ -27,13 +27,13 @@
         #region Show Order In Detailed
 
         [HttpGet]
-        public async Task<IActionResult> Details(int? orderId)
+        public async Task<IActionResult> Details(int? id)
         {
             var order = await _context.Orders
                 .Include(o => o.Basket)
                 .ThenInclude(o => o.Items)
                 .ThenInclude(o => o.Product)
-                .FirstOrDefaultAsync(o => o.OrderId == orderId);
+                .FirstOrDefaultAsync(o => o.OrderId == id);
 
             return View(viewName: nameof(Details), model: order);
         }

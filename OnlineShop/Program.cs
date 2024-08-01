@@ -1,3 +1,5 @@
+using OnlineShop.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,6 +15,12 @@ builder.Services.AddDbContext<OnlineShopDbContext>(options =>
         );
 });
 #endregion
+
+#region Dependencies
+builder.Services.AddScoped<ICommentService, CommentService>();
+#endregion
+
+
 
 #region Authentication
 

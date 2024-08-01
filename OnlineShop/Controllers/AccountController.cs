@@ -53,7 +53,8 @@
             {
                 var claims = new List<Claim> {
             new(ClaimTypes.NameIdentifier , IsManager.ManagerId.ToString()),
-            new(ClaimTypes.Name , IsManager.UserName)
+            new(ClaimTypes.Name , IsManager.UserName),
+            new("FirstName" , IsManager.FirstName),
             };
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);

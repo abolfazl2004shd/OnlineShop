@@ -13,5 +13,11 @@
             string result = value.ToString(".##");
             return result;
         }
+        public static string FormatDate(this DateTime dt)
+        {
+            CultureInfo englishCulture = new("en-US");
+            string result = dt.ToString("MMMM d, yyyy", englishCulture);
+            return result;
+        }
     }
 }
