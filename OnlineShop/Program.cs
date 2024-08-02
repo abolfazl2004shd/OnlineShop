@@ -17,7 +17,11 @@ builder.Services.AddDbContext<OnlineShopDbContext>(options =>
 #endregion
 
 #region Dependencies
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 #endregion
 
 

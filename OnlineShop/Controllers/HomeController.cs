@@ -1,28 +1,25 @@
-﻿
+﻿using OnlineShop.Services;
 
 namespace OnlineShop.Controllers
 {
-    public class HomeController(OnlineShopDbContext context) : Controller
+    public class HomeController(IProductService productService) : Controller
     {
-        private OnlineShopDbContext _context = context;
+        private readonly IProductService _productService = productService;
 
         [HttpGet]
 
         #region Show All Products
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var products = await _context.Products
-                .Include(p => p.Branch)
-                .ThenInclude(p => p.Shop)
-                .ToListAsync();
+            var products = _productService.GetAllProducts();
             return View(viewName: nameof(Index), model: products);
         }
         #endregion
 
         #region Product Details
-        public async Task<IActionResult> Details(int id)
+        public IActionResult Details(int? id)
         {
-            var product = _context.Products.Find(id);
+            var product = _productService.GetProductById(id.Value);
             return View(viewName: nameof(Details), model: product);
         }
         #endregion

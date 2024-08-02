@@ -1,11 +1,12 @@
-﻿namespace OnlineShop.Areas.Customers.Controllers
+﻿using OnlineShop.Services;
+
+namespace OnlineShop.Areas.Customers.Controllers
 {
     [Authorize]
     [Area(areaName: "Customers")]
-    public class ShoppingCartController(OnlineShopDbContext _db) : Controller
+    public class ShoppingCartController(IShoppingCartService shoppingCartService) : Controller
     {
-        private readonly OnlineShopDbContext _context = _db;
-
+        private readonly IShoppingCartService _shoppingCartService = shoppingCartService;
 
         #region Insert Item To Cart
 
@@ -13,56 +14,56 @@
         public async Task<IActionResult> AddToCart(int? id)
         {
             int customerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
-            Customer? customer = await _context.Customers.FindAsync(customerId);
-            Product? product = await _context.Products.FindAsync(id);
-            if (product == null)
-            {
-                return RedirectToAction(actionName: "Index", controllerName: "Products", new
-                {
-                    area = "Customers"
-                });
-            }
+            //Customer? customer = await _context.Customers.FindAsync(customerId);
+            // Product? product = await _context.Products.FindAsync(id);
+            //if (product == null)
+            //{
+            //    return RedirectToAction(actionName: "Index", controllerName: "Products", new
+            //    {
+            //        area = "Customers"
+            //    });
+            //}
 
-            Basket? basket = await _context.Baskets.Where(b => b.CustomerId == customerId && !b.IsFinalize).FirstOrDefaultAsync();
+            //Basket? basket = await _context.Baskets.Where(b => b.CustomerId == customerId && !b.IsFinalize).FirstOrDefaultAsync();
 
-            if (basket == null)
-            {
-                basket = new()
-                {
-                    IsFinalize = false,
-                    CustomerId = customerId,
-                };
-                _context.Entry(basket).State = EntityState.Added;
-                await _context.SaveChangesAsync();
-                Item item = new()
-                {
-                    ProductId = id.Value,
-                    Quantity = 1,
-                    BasketId = basket.BasketId,
-                };
-                _context.Entry(item).State = EntityState.Added;
-            }
-            else
-            {
-                Item? item = await _context.Items.Where(b => b.BasketId == basket.BasketId && b.ProductId == id.Value).FirstOrDefaultAsync();
+            //if (basket == null)
+            //{
+            //    basket = new()
+            //    {
+            //        IsFinalize = false,
+            //        CustomerId = customerId,
+            //    };
+            //    _context.Entry(basket).State = EntityState.Added;
+            //    await _context.SaveChangesAsync();
+            //    Item item = new()
+            //    {
+            //        ProductId = id.Value,
+            //        Quantity = 1,
+            //        BasketId = basket.BasketId,
+            //    };
+            //    _context.Entry(item).State = EntityState.Added;
+            //}
+            //else
+            //{
+            //    Item? item = await _context.Items.Where(b => b.BasketId == basket.BasketId && b.ProductId == id.Value).FirstOrDefaultAsync();
 
-                if (item == null)
-                {
-                    item = new()
-                    {
-                        ProductId = id.Value,
-                        Quantity = 1,
-                        BasketId = basket.BasketId,
-                    };
-                    _context.Entry(item).State = EntityState.Added;
-                }
-                else
-                {
-                    item.Quantity++;
-                }
-            }
-
-            await _context.SaveChangesAsync();
+            //    if (item == null)
+            //    {
+            //        item = new()
+            //        {
+            //            ProductId = id.Value,
+            //            Quantity = 1,
+            //            BasketId = basket.BasketId,
+            //        };
+            //        _context.Entry(item).State = EntityState.Added;
+            //    }
+            //    else
+            //    {
+            //        item.Quantity++;
+            //    }
+            //}
+            _shoppingCartService.AddToCart(id.Value, customerId);
+            //await _context.SaveChangesAsync();
             return RedirectToAction(actionName: "Index", controllerName: "Products", new
             {
                 area = "Customers"
@@ -74,13 +75,11 @@
         #region Display Shopping Cart
 
         [HttpGet]
+        [Route("/Cart")]
         public async Task<IActionResult> Cart()
         {
             int customerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
-            Basket? basket = await _context.Baskets
-                .Include(b => b.Items)
-                .ThenInclude(b => b.Product)
-                .FirstOrDefaultAsync(b => b.CustomerId == customerId && !b.IsFinalize);
+            var basket = _shoppingCartService.DisplayCart(customerId);
 
             return View(viewName: "Cart", model: basket);
         }
@@ -92,13 +91,7 @@
         [HttpGet]
         public async Task<IActionResult> RemoveFromCart(int? itemId)
         {
-            Item? item = await _context.Items.FirstOrDefaultAsync(item => item.ItemId == itemId.Value);
-            if (item == null)
-            {
-
-            }
-            _context.Items.Remove(item);
-            await _context.SaveChangesAsync();
+            _shoppingCartService.RemoveFromCart(itemId.Value);
             return RedirectToAction(actionName: "Cart", controllerName: "ShoppingCart", new
             {
                 area = "Customers"
@@ -121,36 +114,7 @@
         public async Task<IActionResult> Checkout([Bind("City", "Street", "Plaque", "PostalCode")] AddressViewModel address)
         {
             int customerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
-            Basket? basket = await _context.Baskets
-                .Include(b => b.Items)
-                .ThenInclude(b => b.Product)
-                .FirstAsync(b => b.CustomerId == customerId && !b.IsFinalize);
-
-
-            foreach (var item in basket.Items)
-            {
-                _context.Products
-                    .Where(o => o.ProductId == item.ProductId)
-                    .First().Amount -= item.Quantity;
-            }
-
-            Order order = new()
-            {
-                BasketId = basket.BasketId,
-                RegistrationDate = DateTime.Now,
-                DeliveryDate = DateTime.Now.AddDays(3),
-                PostalCode = address.PostalCode,
-                City = address.City,
-                Street = address.Street,
-                Plaque = address.Plaque,
-                ShippingPrice = 25,
-            };
-            _context.Entry(basket).State = EntityState.Modified;
-            _context.Orders.Entry(order).State = EntityState.Added;
-            await _context.SaveChangesAsync();
-            _context.Customers.Find(customerId).Wallet -= order.GetFinalPrice();
-            basket.IsFinalize = true;
-            await _context.SaveChangesAsync();
+            _shoppingCartService.Checkout(address, customerId);
 
             return RedirectToAction(actionName: nameof(Index), controllerName: "Products", new
             {

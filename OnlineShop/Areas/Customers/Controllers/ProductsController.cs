@@ -1,22 +1,21 @@
-﻿namespace OnlineShop.Areas.Customers.Controllers
+﻿using OnlineShop.Services;
+
+namespace OnlineShop.Areas.Customers.Controllers
 {
     [Authorize]
     [Area(areaName: "Customers")]
-    public class ProductsController(OnlineShopDbContext _db) : Controller
+    public class ProductsController(IProductService productService) : Controller
     {
-        private readonly OnlineShopDbContext _context = _db;
+        private readonly IProductService _productService = productService;
+
 
         #region Show All Products
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var products = await _context.Products
-                .Include(p => p.Branch.Shop)
-                .Where(p => p.Amount > 0)
-                .ToListAsync();
-            return View(viewName: nameof(Index), model: products);
+            return View(viewName: nameof(Index), model: _productService.GetAllProducts());
         }
         #endregion
 
@@ -26,14 +25,11 @@
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
+            var product = _productService.GetProductById(id.Value);
             if (id == null)
             {
                 return NotFound();
             }
-
-            var product = await _context.Products
-                .Include(p => p.Branch)
-                .FirstOrDefaultAsync(product => product.ProductId == id);
             if (product == null)
             {
                 return NotFound();

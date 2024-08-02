@@ -38,12 +38,12 @@
 
     /* Background-color of the odd rows */
     .order-list tr:nth-child(odd) {
-        background-color: #323C50;
+        background-color: #975094;
     }
 
     /* Background-color of the even rows */
     .order-list tr:nth-child(even) {
-        background-color: #2C3446;
+        background-color: #a82d94;
     }
 
     .order-list th {

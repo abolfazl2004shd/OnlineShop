@@ -1,24 +1,20 @@
-﻿namespace OnlineShop.Areas.Customers.Controllers
+﻿using OnlineShop.Services;
+
+namespace OnlineShop.Areas.Customers.Controllers
 {
     [Authorize]
     [Area(areaName: "Customers")]
-    public class OrdersController(OnlineShopDbContext _db) : Controller
+    public class OrdersController(IOrderService orderService) : Controller
     {
-        private readonly OnlineShopDbContext _context = _db;
-
+        private readonly IOrderService _orderService = orderService;
 
         #region Show All Orders
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             int customerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
-            var orders = await _context.Orders
-                .Include(o => o.Basket)
-                .ThenInclude(o => o.Items)
-                .ThenInclude(o => o.Product)
-                .Where(o => o.Basket.CustomerId == customerId)
-                .ToListAsync();
+            var orders = _orderService.GetAllCustomerOrders(customerId);
             return View(viewName: nameof(Index), model: orders);
         }
         #endregion
@@ -27,14 +23,9 @@
         #region Show Order In Detailed
 
         [HttpGet]
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
-            var order = await _context.Orders
-                .Include(o => o.Basket)
-                .ThenInclude(o => o.Items)
-                .ThenInclude(o => o.Product)
-                .FirstOrDefaultAsync(o => o.OrderId == id);
-
+            var order = _orderService.GetOrderById(id.Value);
             return View(viewName: nameof(Details), model: order);
         }
         #endregion

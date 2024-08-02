@@ -1,9 +1,11 @@
-﻿namespace OnlineShop.Areas.Customers.Controllers
+﻿using OnlineShop.Services;
+
+namespace OnlineShop.Areas.Customers.Controllers
 {
     [Area(areaName: "Customers")]
-    public class AccountController(OnlineShopDbContext _db) : Controller
+    public class AccountController(IAccountService accountService) : Controller
     {
-        private readonly OnlineShopDbContext _context = _db;
+        private readonly IAccountService accountService = accountService;
 
         #region Register
 
@@ -14,7 +16,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel register)
+        public IActionResult Register(RegisterViewModel register)
         {
             if (register.Password != register.ConfirmedPassword)
             {
@@ -22,26 +24,15 @@
                 return View(register);
             }
 
-            if (!ModelState.IsValid)
+            bool status = accountService.RegisterCustomer(register);
+
+            if (!ModelState.IsValid || !status)
             {
                 return View(register);
             }
-            Customer customer = new()
-            {
-                UserName = register.UserName,
-                FirstName = register.FirstName,
-                LastName = register.LastName,
-                PhoneNumber = register.PhoneNumber,
-                EmailAddress = register.EmailAddress,
-                SSN = register.SSN,
-                Sex = register.Sex,
-                RegistrationDate = DateTime.Now,
-                Wallet = 1000,
-                Password = register.Password,
-            };
 
-            _context.Entry(customer).State = EntityState.Added;
-            await _context.SaveChangesAsync();
+
+
             return RedirectToAction(actionName: "Login", controllerName: "Account", new
             {
                 area = ""
