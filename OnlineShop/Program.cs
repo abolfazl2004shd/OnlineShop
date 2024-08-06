@@ -17,7 +17,11 @@ builder.Services.AddDbContext<OnlineShopDbContext>(options =>
 #endregion
 
 #region Dependencies
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 #endregion
 
 
@@ -60,13 +64,13 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapAreaControllerRoute(
     name: "area01",
-    areaName: "Managers",
-    pattern: "Managers/{controller=Managers}/{action=Index}/{id?}");
+    areaName: "Manager",
+    pattern: "Manager/{controller=Managers}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "area02",
-    areaName: "Customers",
-    pattern: "Customers/{controller=Managers}/{action=Index}/{id?}");
+    areaName: "Customer",
+    pattern: "Customer/{controller=Managers}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

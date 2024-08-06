@@ -33,8 +33,8 @@
         [DataType(DataType.Password)]
         public required string Password { get; set; }
 
-        public List<Basket> Baskets { get; set; }
-        public List<Order> Orders { get; set; }
-        public List<Comment> Comments { get; set; }
+        public List<Basket>? Baskets { get; set; }
+        public List<Order>? Orders { get; set; }
+        public List<Comment>? Comments { get; set; }
     }
 }

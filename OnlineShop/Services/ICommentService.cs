@@ -3,5 +3,6 @@
     public interface ICommentService
     {
         List<Comment> GetProductComments(int id);
+        void AddComment(int productId , int customerId , string description);
     }
 }

@@ -48,11 +48,11 @@
 
         public decimal GetDiscount()
         {
-            return (Discount * Price) / 100;
+            return ((Discount * Price) / 100).FormatDecimal();
         }
         public decimal GetFinalPrice()
         {
-            return Price - GetDiscount();
+            return (Price - GetDiscount()).FormatDecimal();
         }
 
     }

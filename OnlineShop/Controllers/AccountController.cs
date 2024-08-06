@@ -44,9 +44,9 @@
                 };
 
                 await HttpContext.SignInAsync(principal, properties);
-                return RedirectToAction(actionName: "Index", controllerName: "Products", new
+                return RedirectToAction(actionName: "Index", controllerName: "Product", new
                 {
-                    area = "Customers"
+                    area = "Customer"
                 });
             }
             else if (IsManager != null)
@@ -64,9 +64,9 @@
                 };
 
                 await HttpContext.SignInAsync(principal, properties);
-                return RedirectToAction(actionName: "Index", controllerName: "Products", new
+                return RedirectToAction(actionName: "Index", controllerName: "Product", new
                 {
-                    area = "Managers"
+                    area = "Manager"
                 });
             }
             return RedirectToAction(actionName: "Login", controllerName: "Account");

@@ -1,4 +1,6 @@
-﻿namespace OnlineShop
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace OnlineShop
 {
     public static class Helper
     {
@@ -8,10 +10,9 @@
             string convertedDate = $"{calendar.GetYear(date)}/{calendar.GetMonth(date)}/{calendar.GetDayOfMonth(date)}";
             return convertedDate;
         }
-        public static string FormatDecimal(this decimal value)
+        public static decimal FormatDecimal(this decimal value)
         {
-            string result = value.ToString(".##");
-            return result;
+            return Math.Round(value, 2);
         }
         public static string FormatDate(this DateTime dt)
         {

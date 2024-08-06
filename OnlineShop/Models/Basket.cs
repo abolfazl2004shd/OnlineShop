@@ -23,22 +23,22 @@
         public decimal GetFinalDiscount()
         {
             decimal initialPrice = Items.Sum(item => item.Product.GetDiscount() * item.Quantity);
-            return initialPrice;
+            return initialPrice.FormatDecimal();
         }
         public decimal GetInitialPrice()
         {
             decimal discount = Items.Sum(item => item.Product.Price * item.Quantity);
-            return discount;
+            return discount.FormatDecimal();
         }
         public decimal GetTax(int Coefficient)
         {
             decimal tax = (GetInitialPrice() - GetFinalDiscount()) * Coefficient / 100;
-            return tax;
+            return tax.FormatDecimal();
         }
         public decimal GetFinalPrice()
         {
             decimal finalPrice = GetInitialPrice() - GetFinalDiscount() + GetTax(9);
-            return finalPrice;
+            return finalPrice.FormatDecimal();
         }
     }
 }

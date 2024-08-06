@@ -23,7 +23,7 @@
 
         public decimal GetPrice()
         {
-            return Product.GetFinalPrice() * Quantity;
+            return (Product.GetFinalPrice() * Quantity).FormatDecimal();
         }
     }
 }

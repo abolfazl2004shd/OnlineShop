@@ -1,14 +1,23 @@
 ﻿
 namespace OnlineShop.Services
 {
-    public class CommentService : ICommentService
+    public class CommentService(OnlineShopDbContext context) : ICommentService
     {
-        private OnlineShopDbContext _context;
+        private OnlineShopDbContext _context = context;
 
-        public CommentService(OnlineShopDbContext context)
+        public void AddComment(int productId , int customerId , string description)
         {
-            _context = context;
+            var commment = new Comment()
+            {
+                CreatedDate = DateTime.Now,
+                Description = description,
+                ProductId = productId,
+                CustomerId = customerId,
+            };
+            _context.Comments.Add(commment);
+            _context.SaveChanges();
         }
+
         public List<Comment> GetProductComments(int id)
         {
             var comments = _context.Comments.Where(c => c.ProductId == id).ToList();
