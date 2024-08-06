@@ -1,0 +1,85 @@
+﻿@model AddressViewModel
+
+<br />
+<br />
+<br />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-area="Customer" asp-controller="ShoppingCart" asp-action="Checkout">
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Street" class="control-label"></label>
+                <input asp-for="Street" class="form-control" />
+                <span asp-validation-for="Street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Plaque" class="control-label"></label>
+                <input asp-for="Plaque" class="form-control" />
+                <span asp-validation-for="Plaque" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostalCode" class="control-label"></label>
+                <input asp-for="PostalCode" class="form-control" />
+                <span asp-validation-for="PostalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Checkout" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@* <div class="col-xl-4">
+    <div class="mt-5 mt-lg-0">
+        <div class="card border shadow-none">
+            <div class="card-header bg-transparent border-bottom py-3 px-4">
+                <h5 class="font-size-16 mb-0">Order Summary <span class="float-end">#MN0124</span></h5>
+            </div>
+            <div class="card-body p-4 pt-2">
+
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <tbody>
+                            <tr>
+                                <td>Sub Total :</td>
+                                <td class="text-end">$ 32</td>
+                            </tr>
+                            <tr>
+                                <td>Discount : </td>
+                                <td class="text-end">$ 213</td>
+                            </tr>
+                            <tr>
+                                <td>Shipping Charge :</td>
+                                <td class="text-end">$ 30</td>
+                            </tr>
+                            <tr>
+                                <td>Estimated Tax : </td>
+                                <td class="text-end">$ 32</td>
+                            </tr>
+                            <tr class="bg-light">
+                                <th>Total :</th>
+                                <td class="text-end">
+                                    <span class="fw-bold">
+                                        $ 9887
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- end table-responsive -->
+            </div>
+        </div>
+    </div>
+</div>
+ *@
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -38,7 +38,7 @@
 
     /* Background-color of the odd rows */
     .order-list tr:nth-child(odd) {
-        background-color: #975094;
+        background-color: #f89cab;
     }
 
     /* Background-color of the even rows */

@@ -1,0 +1,134 @@
+﻿@model RegisterViewModel
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <partial name="MetaTags" />
+    <title>Online Shop</title>
+
+
+    <link href="~/CustomerRegister/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="~/CustomerRegister/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/CustomerRegister/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="~/CustomerRegister/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+
+    <link href="~/CustomerRegister/css/main.css" rel="stylesheet" media="all">
+</head>
+
+<body>
+    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-4">
+                <div class="card-body">
+                    <h2 class="title">Registration Form</h2>
+                    <form method="POST" asp-area="Customer" asp-controller="Account" asp-action="Register">
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label asp-for="UserName" class="label"></label>
+                                    <input asp-for="UserName" class="input--style-4" type="text">
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label asp-for="SSN" class="label"></label>
+                                    <input asp-for="SSN" class="input--style-4" type="text">
+                                    <span asp-validation-for="SSN" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label asp-for="FirstName" class="label"></label>
+                                    <input asp-for="FirstName" class="input--style-4" type="text">
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label asp-for="LastName" class="label"></label>
+                                    <input asp-for="LastName" class="input--style-4" type="text">
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label asp-for="EmailAddress" class="label"></label>
+                                    <input asp-for="EmailAddress" class="input--style-4" type="text">
+                                    <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label asp-for="PhoneNumber" class="label"></label>
+                                    <input asp-for="PhoneNumber" class="input--style-4" type="text">
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Gender</label>
+                                <div class="p-t-10">
+                                    <label class="radio-container m-r-45">
+                                        Male
+                                        <input type="radio" asp-for="Sex" value="Male">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="radio-container">
+                                        Female
+                                        <input type="radio" asp-for="Sex" value="Female">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label asp-for="Password" class="label"></label>
+                                    <input asp-for="Password" class="input--style-4" type="password">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label asp-for="ConfirmedPassword" class="label"></label>
+                                    <input asp-for="ConfirmedPassword" class="input--style-4" type="password">
+                                    <span asp-validation-for="ConfirmedPassword" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-t-15">
+                            <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/CustomerRegister/vendor/jquery/jquery.min.js"></script>
+
+    <script src="~/CustomerRegister/vendor/select2/select2.min.js"></script>
+    <script src="~/CustomerRegister/vendor/datepicker/moment.min.js"></script>
+    <script src="~/CustomerRegister/vendor/datepicker/daterangepicker.js"></script>
+    <script src="~/CustomerRegister/js/global.js"></script>
+
+</body>
+
+</html>

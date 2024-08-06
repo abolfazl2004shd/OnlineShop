@@ -11,14 +11,14 @@
                 <div class="fs-5 mb-5">
                     @if (Model.Discount != 0)
                     {
-                        <span class="text-decoration-line-through">$@Model.Price.FormatDecimal()</span>
+                        <span class="text-decoration-line-through">$@Model.Price</span>
                     }
-                    <span>$@Model.GetFinalPrice().FormatDecimal()</span>
+                    <span>$@Model.GetFinalPrice()</span>
                 </div>
                 <p class="lead">@Model.Description</p>
                 <div class="d-flex">
                     <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                    <a class="btn btn-outline-dark flex-shrink-0" asp-area="Customers" asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id="@Model.ProductId">
+                    <a class="btn btn-outline-dark flex-shrink-0" asp-area="Customes" asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id="@Model.ProductId">
                         <i class="bi-cart-fill me-1"></i>
                         Add to cart
                     </a>

@@ -2,7 +2,7 @@
 {
     public class AccountService(OnlineShopDbContext context) : IAccountService
     {
-        private OnlineShopDbContext _context = context;
+        private readonly OnlineShopDbContext _context = context;
 
        
 
@@ -34,5 +34,11 @@
             }
 
         }
+
+        //bool IAccountService.LoginCustomer(LoginViewModel login)
+        //{
+
+        //}
+
     }
 }

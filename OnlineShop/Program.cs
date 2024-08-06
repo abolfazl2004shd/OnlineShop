@@ -64,13 +64,13 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapAreaControllerRoute(
     name: "area01",
-    areaName: "Managers",
-    pattern: "Managers/{controller=Managers}/{action=Index}/{id?}");
+    areaName: "Manager",
+    pattern: "Manager/{controller=Managers}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "area02",
-    areaName: "Customers",
-    pattern: "Customers/{controller=Managers}/{action=Index}/{id?}");
+    areaName: "Customer",
+    pattern: "Customer/{controller=Managers}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

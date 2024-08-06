@@ -39,7 +39,7 @@
         public decimal GetFinalPrice()
         {
             decimal finalPrice = Basket.GetFinalPrice() + ShippingPrice;
-            return finalPrice;
+            return finalPrice.FormatDecimal();
         }
         public string GetAddress()
         {

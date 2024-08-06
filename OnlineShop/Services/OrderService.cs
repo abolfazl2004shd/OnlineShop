@@ -1,6 +1,4 @@
-﻿using OnlineShop.Models;
-
-namespace OnlineShop.Services
+﻿namespace OnlineShop.Services
 {
     public class OrderService(OnlineShopDbContext context) : IOrderService
     {
