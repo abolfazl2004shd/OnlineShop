@@ -3,9 +3,9 @@ namespace OnlineShop.Services
 {
     public class CommentService(OnlineShopDbContext context) : ICommentService
     {
-        private OnlineShopDbContext _context = context;
+        private readonly OnlineShopDbContext _context = context;
 
-        public void AddComment(int productId , int customerId , string description)
+        public void AddComment(int productId, int customerId, string description)
         {
             var commment = new Comment()
             {
@@ -20,8 +20,18 @@ namespace OnlineShop.Services
 
         public List<Comment> GetProductComments(int id)
         {
-            var comments = _context.Comments.Where(c => c.ProductId == id).ToList();
+            var comments = _context.Comments
+                .Include(c => c.Customer)
+                .Include(c => c.Product)
+                .Where(c => c.ProductId == id).ToList();
             return comments;
         }
+
+        //public bool HasProductPurchased(int customerId, int productId)
+        //{
+        //   var status = _context.Baskets
+        //        .Include(b =>b.Items)
+        //        .Where(b => b.CustomerId == customerId && b.)
+        //        }
     }
 }

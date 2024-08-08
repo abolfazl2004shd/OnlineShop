@@ -3,14 +3,16 @@
     public class AddressViewModel
     {
         [Required]
-        public required string PostalCode { get; set; }
-        [Required]
-        public required string City { get; set; }
+        public int BasketId { get; set; }
 
-        [Required]
-        public required string Street { get; set; }
+        public string PostalCode { get; set; } = string.Empty;
 
-        [Required]
-        public required string Plaque { get; set; }
+        public string City { get; set; } = string.Empty;
+
+
+        public string Street { get; set; } = string.Empty;
+
+
+        public string Plaque { get; set; } = string.Empty;
     }
 }

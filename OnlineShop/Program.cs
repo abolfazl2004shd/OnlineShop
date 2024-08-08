@@ -10,8 +10,9 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<OnlineShopDbContext>(options =>
 {
+    string ConnectionString = "OnlineShopDbContextConnection";
     options.UseSqlServer(
-        builder.Configuration["ConnectionStrings:OnlineShopDbContextConnection"]
+        builder.Configuration[$"ConnectionStrings:{ConnectionString}"]
         );
 });
 #endregion
@@ -22,6 +23,7 @@ builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 #endregion
 
 
@@ -61,20 +63,23 @@ app.UseAuthorization();
 
 
 #region Mapping Route
-app.MapRazorPages();
-app.MapAreaControllerRoute(
-    name: "area01",
-    areaName: "Manager",
-    pattern: "Manager/{controller=Managers}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
-    name: "area02",
+    name: "area01",
     areaName: "Customer",
     pattern: "Customer/{controller=Managers}/{action=Index}/{id?}");
+
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
+app.MapAreaControllerRoute(
+    name: "Admin",
+    areaName: "Admin",
+    pattern: "Admin/{page=Dashbord}/{id?}");
+
 #endregion
 
 

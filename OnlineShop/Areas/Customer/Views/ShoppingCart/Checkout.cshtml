@@ -1,12 +1,16 @@
-﻿@model AddressViewModel
-
+﻿@using OnlineShop.Services;
+@model AddressViewModel
+@inject IOrderService OrderService
 <br />
 <br />
 <br />
-
+@{
+    var basket = OrderService.GetBaksetById(Model.BasketId);
+}
 <div class="row">
     <div class="col-md-4">
         <form asp-area="Customer" asp-controller="ShoppingCart" asp-action="Checkout">
+            <input type="hidden" asp-for="BasketId" />
             <div class="form-group">
                 <label asp-for="City" class="control-label"></label>
                 <input asp-for="City" class="form-control" />
@@ -34,7 +38,7 @@
     </div>
 </div>
 
-@* <div class="col-xl-4">
+<div class="col-xl-4">
     <div class="mt-5 mt-lg-0">
         <div class="card border shadow-none">
             <div class="card-header bg-transparent border-bottom py-3 px-4">
@@ -45,13 +49,10 @@
                 <div class="table-responsive">
                     <table class="table mb-0">
                         <tbody>
-                            <tr>
-                                <td>Sub Total :</td>
-                                <td class="text-end">$ 32</td>
-                            </tr>
+                          
                             <tr>
                                 <td>Discount : </td>
-                                <td class="text-end">$ 213</td>
+                                <td class="text-end">$ @basket.GetFinalDiscount()</td>
                             </tr>
                             <tr>
                                 <td>Shipping Charge :</td>
@@ -59,13 +60,13 @@
                             </tr>
                             <tr>
                                 <td>Estimated Tax : </td>
-                                <td class="text-end">$ 32</td>
+                                <td class="text-end">$ @basket.GetTax(9)</td>
                             </tr>
                             <tr class="bg-light">
                                 <th>Total :</th>
                                 <td class="text-end">
                                     <span class="fw-bold">
-                                        $ 9887
+                                        $ @basket.GetFinalPrice()
                                     </span>
                                 </td>
                             </tr>
@@ -77,7 +78,7 @@
         </div>
     </div>
 </div>
- *@
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

@@ -6,30 +6,21 @@
         public int ProductId { get; set; }
 
         [Required]
-        public required int BranchId { get; set; }
-
-        [Required]
-        public required string ProductName { get; set; }
+        public  string ProductName { get; set; } = string.Empty;
 
         [Required]
         [DataType(DataType.ImageUrl)]
-        public required string ImageSrc { get; set; }
+        public  string ImageSrc { get; set; } = string.Empty;
 
         [Required]
-        public required string Size { get; set; }
+        public  string Size { get; set; } = string.Empty;
 
         [Required]
-        public required string Color { get; set; }
+        public  string Color { get; set; } = string.Empty;
 
-        public decimal Discount { get; set; }
+        public decimal Discount { get; set; } = 0m;
 
-        [Required]
-        public required string ClothType { get; set; }
-
-        public string? Description { get; set; }
-
-        [Required]
-        public required string ProducingCountry { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         [Required]
         public int Amount { get; set; }
@@ -37,11 +28,9 @@
         [Required]
         public decimal Price { get; set; }
 
-
-
-        [ForeignKey(nameof(BranchId))]
         [Required]
-        public required Branch Branch { get; set; }
+        public DateTime CreatedDate { get; set; }
+
 
         public List<Comment>? Comments { get; set; }
 

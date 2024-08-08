@@ -1,8 +1,9 @@
 ﻿namespace OnlineShop.Models
-{
+{ 
     public class Customer
     {
         [Key]
+
         public int CustomerId { get; set; }
         [Required]
         public required string UserName { get; set; }
@@ -14,7 +15,7 @@
         public required string SSN { get; set; }
 
         [Required]
-        public required string Sex { get; set; }
+        public required string Gender { get; set; }
 
         [Required]
         public required decimal Wallet { get; set; }

@@ -18,7 +18,7 @@
                     PhoneNumber = register.PhoneNumber,
                     EmailAddress = register.EmailAddress,
                     SSN = register.SSN,
-                    Sex = register.Sex,
+                    Gender = register.Gender,
                     RegistrationDate = DateTime.Now,
                     Wallet = 1000,
                     Password = register.Password,

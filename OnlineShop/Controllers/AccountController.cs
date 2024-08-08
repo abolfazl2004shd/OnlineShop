@@ -17,8 +17,8 @@
             string UserName = login.UserName;
             string Password = login.Password;
 
-            Manager? IsManager = _context.Managers.FirstOrDefault(
-                user => user.UserName == UserName && user.Password == Password);
+        //    Manager? IsManager = _context.Managers.FirstOrDefault(
+          //      user => user.UserName == UserName && user.Password == Password);
 
             Customer? IsCustomer = _context.Customers.FirstOrDefault(
                user => user.UserName == UserName && user.Password == Password);
@@ -49,26 +49,26 @@
                     area = "Customer"
                 });
             }
-            else if (IsManager != null)
-            {
-                var claims = new List<Claim> {
-            new(ClaimTypes.NameIdentifier , IsManager.ManagerId.ToString()),
-            new(ClaimTypes.Name , IsManager.UserName),
-            new("FirstName" , IsManager.FirstName),
-            };
-                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var principal = new ClaimsPrincipal(identity);
-                var properties = new AuthenticationProperties
-                {
-                    //  IsPersistent = login.RememberMe,
-                };
+            //else if (IsManager != null)
+            //{
+            //    var claims = new List<Claim> {
+            //new(ClaimTypes.NameIdentifier , IsManager.ManagerId.ToString()),
+            //new(ClaimTypes.Name , IsManager.UserName),
+            //new("FirstName" , IsManager.FirstName),
+            //};
+            //    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            //    var principal = new ClaimsPrincipal(identity);
+            //    var properties = new AuthenticationProperties
+            //    {
+            //        //  IsPersistent = login.RememberMe,
+            //    };
 
-                await HttpContext.SignInAsync(principal, properties);
-                return RedirectToAction(actionName: "Index", controllerName: "Product", new
-                {
-                    area = "Manager"
-                });
-            }
+            //    await HttpContext.SignInAsync(principal, properties);
+            //    return RedirectToAction(actionName: "Index", controllerName: "Product", new
+            //    {
+            //        area = "Manager"
+            //    });
+            //}
             return RedirectToAction(actionName: "Login", controllerName: "Account");
         }
         #endregion

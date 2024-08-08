@@ -94,7 +94,7 @@
                     </div> <!-- end col -->
                     <div class="col-sm-6">
                         <div class="text-sm-end mt-2 mt-sm-0">
-                            <a asp-area="Customer" asp-controller="ShoppingCart" asp-action="Checkout" class="btn btn-success">
+                            <a asp-area="Customer" asp-controller="ShoppingCart" asp-action="Checkout" asp-route-id="@Model.BasketId" class="btn btn-success">
                                 <i class="mdi mdi-cart-outline me-1"></i> Continue Purchase Process
                             </a>
                         </div>

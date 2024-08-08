@@ -14,10 +14,10 @@ namespace OnlineShop.Areas.Customers.Controllers
         public IActionResult AddToCart(int? id)
         {
             int customerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
-       
-          
+
+
             _shoppingCartService.AddToCart(id.Value, customerId);
-            
+
             return RedirectToAction(actionName: "Index", controllerName: "Product", new
             {
                 area = "Customer"
@@ -57,15 +57,20 @@ namespace OnlineShop.Areas.Customers.Controllers
         #region Checkout
 
         [HttpGet]
-        public IActionResult Checkout()
+        public IActionResult Checkout(int? id)
         {
-            return View(viewName: nameof(Checkout));
+            AddressViewModel address = new()
+            {
+                BasketId = id.Value,
+            };
+
+            return View(viewName: nameof(Checkout) , model:address);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Checkout([Bind("City", "Street", "Plaque", "PostalCode")] AddressViewModel address)
+        public IActionResult Checkout([Bind("City", "Street", "Plaque", "PostalCode")] AddressViewModel address)
         {
             int customerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
             _shoppingCartService.Checkout(address, customerId);

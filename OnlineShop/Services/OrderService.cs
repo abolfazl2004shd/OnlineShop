@@ -14,6 +14,16 @@
             return orders;
         }
 
+        public Basket GetBaksetById(int id)
+        {
+            var basket = _context.Baskets
+            .Include(b => b.Items)
+            .ThenInclude(b => b.Product)
+            .Where(b => b.BasketId == id)
+            .FirstOrDefault();
+            return basket;
+        }
+
         public Order GetOrderById(int id)
         {
             var order = _context.Orders

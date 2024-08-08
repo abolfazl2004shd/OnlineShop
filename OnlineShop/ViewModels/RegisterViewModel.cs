@@ -12,7 +12,7 @@
         public required string SSN { get; set; }
 
         [Required]
-        public required string Sex { get; set; }
+        public required string Gender { get; set; }
 
 
         [DataType(DataType.EmailAddress)]
