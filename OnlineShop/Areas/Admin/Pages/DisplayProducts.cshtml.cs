@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OnlineShop.Services;
 
-namespace OnlineShop.Areas.Admin.Pages.Product
+namespace OnlineShop.Areas.Admin.Pages
 {
-    public class IndexModel(IProductService productService) : PageModel
+    public class DiplayProductsModel(IProductService productService) : PageModel
     {
         private readonly IProductService _productService = productService;
-        public List<Models.Product> Products { get; set; }
+        public List<Product> Products { get; set; }
         public void OnGet()
         {
             Products = _productService.GetAllProducts();

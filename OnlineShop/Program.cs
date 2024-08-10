@@ -12,36 +12,33 @@ builder.Services.AddDbContext<OnlineShopDbContext>(options =>
 {
     string ConnectionString = "OnlineShopDbContextConnection";
     options.UseSqlServer(
-        builder.Configuration[$"ConnectionStrings:{ConnectionString}"]
-        );
+        builder.Configuration.GetConnectionString(ConnectionString));
 });
+
 #endregion
 
 #region Dependencies
+
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+
 #endregion
-
-
 
 #region Authentication
 
-builder.Services.AddAuthentication(
-    CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
-    option =>
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
     {
-        option.LoginPath = "/Account/Login";
-        option.LogoutPath = "/Account/Logout";
-        option.ExpireTimeSpan = TimeSpan.FromDays(30);
+        options.LoginPath = "/Account/Login";
+        options.LogoutPath = "/Account/Logout";
+        options.ExpireTimeSpan = TimeSpan.FromDays(30);
     });
 
-
 #endregion
-
 
 var app = builder.Build();
 
@@ -49,7 +46,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -61,26 +57,22 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
 #region Mapping Route
 
+// MVC Area Routing for Controllers in "Customer" area
 app.MapAreaControllerRoute(
     name: "area01",
     areaName: "Customer",
     pattern: "Customer/{controller=Managers}/{action=Index}/{id?}");
 
-
+// MVC Default Route
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+// Razor Pages Routing (includes areas by default)
 app.MapRazorPages();
-app.MapAreaControllerRoute(
-    name: "Admin",
-    areaName: "Admin",
-    pattern: "Admin/{page=Dashbord}/{id?}");
 
 #endregion
-
 
 app.Run();

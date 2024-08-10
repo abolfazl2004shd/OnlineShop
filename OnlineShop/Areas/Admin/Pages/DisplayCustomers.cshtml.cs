@@ -1,9 +1,10 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OnlineShop.Services;
 
-namespace OnlineShop.Areas.Admin.Pages.Customer
+namespace OnlineShop.Areas.Admin.Pages
 {
-    public class IndexModel(ICustomerService customerService) : PageModel
+    public class DisplayCustomersModel(ICustomerService customerService) : PageModel
     {
         public List<Models.Customer> Customers { get; set; }
         private readonly ICustomerService _customerService = customerService;

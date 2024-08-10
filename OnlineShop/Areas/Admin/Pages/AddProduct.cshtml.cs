@@ -1,11 +1,13 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OnlineShop.Services;
 
-namespace OnlineShop.Areas.Admin.Pages.Product
+namespace OnlineShop.Areas.Admin.Pages
 {
-    public class AddModel(IProductService productService) : PageModel
+    public class AddProductModel(IProductService productService) : PageModel
     {
         private readonly IProductService _productService = productService;
+        [BindProperty]
         public Models.Product Product { get; set; }
         public void OnGet()
         {
@@ -17,7 +19,9 @@ namespace OnlineShop.Areas.Admin.Pages.Product
 
         public IActionResult OnPost(Models.Product product)
         {
-            
+            if (!ModelState.IsValid)
+                return Page();
+
             _productService.AddProduct(product);
             return RedirectToPage("/Product/Index");
         }
