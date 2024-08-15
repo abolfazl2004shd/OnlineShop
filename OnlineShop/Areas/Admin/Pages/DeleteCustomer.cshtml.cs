@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace OnlineShop.Areas.Admin.Pages
 {
+    [Authorize]
     public class DeleteCustomerModel(ICustomerService customerService) : PageModel
     {
         private readonly ICustomerService _customerService = customerService;

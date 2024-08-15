@@ -1,10 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using OnlineShop.Models;
-using OnlineShop.Data.Services;
 
 namespace OnlineShop.Areas.Admin.Pages
 {
+    [Authorize]
     public class DeleteProductModel : PageModel
     {
         private readonly IProductService _productService;

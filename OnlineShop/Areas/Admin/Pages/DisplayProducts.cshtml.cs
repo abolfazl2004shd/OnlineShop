@@ -3,6 +3,7 @@ using OnlineShop.Data.Services;
 
 namespace OnlineShop.Areas.Admin.Pages
 {
+    [Authorize]
     public class DiplayProductsModel(IProductService productService) : PageModel
     {
         private readonly IProductService _productService = productService;

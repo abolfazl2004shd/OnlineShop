@@ -4,11 +4,12 @@ using OnlineShop.Data.Services;
 
 namespace OnlineShop.Areas.Admin.Pages
 {
+    [Authorize]
     public class AddProductModel(IProductService productService) : PageModel
     {
         private readonly IProductService _productService = productService;
         [BindProperty]
-        public Models.Product Product { get; set; }
+        public Product Product { get; set; }
         public void OnGet()
         {
             Product = new()
@@ -17,13 +18,16 @@ namespace OnlineShop.Areas.Admin.Pages
             };
         }
 
-        public IActionResult OnPost(Models.Product product)
+        public IActionResult OnPost(Product product)
         {
             if (!ModelState.IsValid)
                 return Page();
 
             _productService.AddProduct(product);
-            return RedirectToPage("/Product/Index");
+            return RedirectToPage("/Product/Index", new
+            {
+                area = "Admin",
+            });
         }
     }
 }

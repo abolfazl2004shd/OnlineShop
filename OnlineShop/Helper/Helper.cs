@@ -18,7 +18,5 @@
             string result = dt.ToString("MMMM d, yyyy", englishCulture);
             return result;
         }
-
-
     }
 }

@@ -11,7 +11,7 @@ namespace OnlineShop.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            return View(viewName: nameof(Login));
         }
 
         [HttpPost]
@@ -45,7 +45,7 @@ namespace OnlineShop.Controllers
 
                 await HttpContext.SignInAsync(principal, properties);
 
-                if (user.Role == "admin")
+                if (user.Role.Equals("admin", StringComparison.CurrentCultureIgnoreCase))
                 {
                     return RedirectToPage(pageName: "/Dashboard", new
                     {
@@ -62,7 +62,7 @@ namespace OnlineShop.Controllers
 
             }
 
-            return RedirectToAction(actionName: "Login", controllerName: "Account");
+            return RedirectToAction(actionName: nameof(Login), controllerName: "Account");
         }
         #endregion
 
@@ -72,7 +72,10 @@ namespace OnlineShop.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction(actionName: "Index ", controllerName: "Home");
+            return RedirectToAction(actionName: "Index", controllerName: "Home", new
+            {
+                area = "",
+            });
         }
         #endregion
     }

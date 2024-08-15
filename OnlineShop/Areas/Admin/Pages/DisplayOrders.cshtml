@@ -1,0 +1,34 @@
+﻿@page
+@model OnlineShop.Areas.Admin.Pages.DisplayOrdersModel
+@{
+}
+
+
+
+<table class="table table-striped table-dark table-bordered">
+    <tr>
+        <th>OrderId</th>
+        <th>UserName</th>
+        <th>Price</th>
+        <th>Address</th>
+        <th>RegistrationDate</th>
+        <th>DeliveryDate</th>
+        <th></th>
+
+    </tr>
+
+    @foreach (var order in Model.Orders)
+    {
+        <tr>
+            <td>@order.OrderId</td>
+            <td>@order.Basket.Customer.UserName</td>
+            <td>@order.GetFinalPrice()</td>
+            <td>@order.GetAddress()</td>
+            <td>@order.RegistrationDate.FormatDate()</td>
+            <td>@order.DeliveryDate.FormatDate()</td>
+            <td>
+                <a class="btn btn-danger" asp-area="Admin" asp-page="DeleteCustomer" asp-route-id="@customer.CustomerId">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

@@ -5,6 +5,16 @@ namespace OnlineShop.Data.Services
     public class OrderService(OnlineShopDbContext context) : IOrderService
     {
         private readonly OnlineShopDbContext _context = context;
+
+        public List<Order> AllOrders()
+        {
+            var orders = _context.Orders
+                 .Include(o => o.Basket)
+                 .ThenInclude(o => o.Customer)
+                 .ToList();
+            return orders;
+        }
+
         public List<Order> GetAllCustomerOrders(int customerId)
         {
             var orders = _context.Orders

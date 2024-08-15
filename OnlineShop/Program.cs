@@ -1,5 +1,4 @@
 using OnlineShop.Data.Context;
-using OnlineShop.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,7 +63,7 @@ app.UseAuthorization();
 app.MapAreaControllerRoute(
     name: "area01",
     areaName: "Customer",
-    pattern: "Customer/{controller=Managers}/{action=Index}/{id?}");
+    pattern: "Customer/{controller=Prodcut}/{action=Index}/{id?}");
 
 // MVC Default Route
 app.MapControllerRoute(

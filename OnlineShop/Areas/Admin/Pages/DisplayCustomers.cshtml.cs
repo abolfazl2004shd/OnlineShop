@@ -4,9 +4,10 @@ using OnlineShop.Data.Services;
 
 namespace OnlineShop.Areas.Admin.Pages
 {
+    [Authorize]
     public class DisplayCustomersModel(ICustomerService customerService) : PageModel
     {
-        public List<Models.User> Customers { get; set; }
+        public List<User> Customers { get; set; }
         private readonly ICustomerService _customerService = customerService;
         public void OnGet()
         {
