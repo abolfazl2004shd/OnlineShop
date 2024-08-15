@@ -1,4 +1,6 @@
-﻿namespace OnlineShop.Models
+﻿using OnlineShop.Helper;
+
+namespace OnlineShop.Models
 {
     [Table(name: "Baskets")]
     public class Basket

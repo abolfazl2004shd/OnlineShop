@@ -1,4 +1,4 @@
-﻿namespace OnlineShop.Data
+﻿namespace OnlineShop.Data.Context
 {
     public class OnlineShopDbContext(DbContextOptions<OnlineShopDbContext> options) : DbContext(options)
     {

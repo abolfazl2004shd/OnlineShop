@@ -1,10 +1,12 @@
-﻿namespace OnlineShop.Services
+﻿using OnlineShop.Data.Context;
+
+namespace OnlineShop.Data.Services
 {
     public class AccountService(OnlineShopDbContext context) : IAccountService
     {
         private readonly OnlineShopDbContext _context = context;
 
-       
+
 
         public bool RegisterCustomer(RegisterViewModel register)
         {

@@ -1,4 +1,4 @@
-﻿namespace OnlineShop.Services
+﻿namespace OnlineShop.Data.Services
 {
     public interface IAccountService
     {

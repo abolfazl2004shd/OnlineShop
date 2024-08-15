@@ -1,6 +1,4 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace OnlineShop
+﻿namespace OnlineShop.Helper
 {
     public static class Helper
     {
@@ -20,5 +18,7 @@ namespace OnlineShop
             string result = dt.ToString("MMMM d, yyyy", englishCulture);
             return result;
         }
+
+
     }
 }

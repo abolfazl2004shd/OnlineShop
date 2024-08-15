@@ -11,6 +11,6 @@ global using Microsoft.AspNetCore.Authorization;
 global using System.Security.Claims;
 global using Microsoft.EntityFrameworkCore.Migrations;
 global using Microsoft.EntityFrameworkCore.Infrastructure;
-global using Microsoft.AspNetCore.Mvc.Rendering;
 global using System.Globalization;
-//global using OnlineShop.Helper;
+global using OnlineShop.Helper;
+global using OnlineShop.Data.Services;

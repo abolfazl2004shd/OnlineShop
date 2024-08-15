@@ -1,5 +1,6 @@
-﻿
-namespace OnlineShop.Services
+﻿using OnlineShop.Data.Context;
+
+namespace OnlineShop.Data.Services
 {
     public class CommentService(OnlineShopDbContext context) : ICommentService
     {

@@ -1,4 +1,6 @@
-﻿namespace OnlineShop.Controllers
+﻿using OnlineShop.Data.Context;
+
+namespace OnlineShop.Controllers
 {
     public class AccountController(OnlineShopDbContext _db) : Controller
     {

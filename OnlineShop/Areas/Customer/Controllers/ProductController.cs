@@ -1,4 +1,4 @@
-﻿using OnlineShop.Services;
+﻿using OnlineShop.Data.Services;
 
 namespace OnlineShop.Areas.Customers.Controllers
 {

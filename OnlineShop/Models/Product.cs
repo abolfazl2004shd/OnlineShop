@@ -1,4 +1,6 @@
-﻿namespace OnlineShop.Models
+﻿using OnlineShop.Helper;
+
+namespace OnlineShop.Models
 {
     public class Product
     {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OnlineShop.Data.Context;
 
-namespace OnlineShop.Services
+namespace OnlineShop.Data.Services
 {
     public class ShoppingCartService(OnlineShopDbContext context) : IShoppingCartService
     {

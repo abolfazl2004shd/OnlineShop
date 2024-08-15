@@ -1,4 +1,5 @@
-using OnlineShop.Services;
+using OnlineShop.Data.Context;
+using OnlineShop.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

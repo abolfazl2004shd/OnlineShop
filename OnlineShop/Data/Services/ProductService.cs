@@ -1,4 +1,6 @@
-﻿namespace OnlineShop.Services
+﻿using OnlineShop.Data.Context;
+
+namespace OnlineShop.Data.Services
 {
     public class ProductService(OnlineShopDbContext context) : IProductService
     {

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using OnlineShop.Services;
+using OnlineShop.Data.Services;
 
 namespace OnlineShop.Areas.Admin.Pages
 {
