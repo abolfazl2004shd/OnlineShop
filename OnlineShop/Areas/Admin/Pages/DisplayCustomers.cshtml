@@ -12,17 +12,20 @@
         <th>FirstName</th>
         <th>LastName</th>
         <th>Email</th>
+        <th></th>
 
     </tr>
 
     @foreach (var customer in Model.Customers)
     {
         <tr>
-            <th>@customer.UserName</th>
-            <th>@customer.FirstName</th>
-            <th>@customer.LastName</th>
-            <th>@customer.EmailAddress</th>
-
+            <td>@customer.UserName</td>
+            <td>@customer.FirstName</td>
+            <td>@customer.LastName</td>
+            <td>@customer.EmailAddress</td>
+            <td>
+                <a class="btn btn-danger" asp-area="Admin" asp-page="DeleteCustomer" asp-route-id="@customer.CustomerId">Delete</a>
+            </td>
         </tr>
     }
 </table>

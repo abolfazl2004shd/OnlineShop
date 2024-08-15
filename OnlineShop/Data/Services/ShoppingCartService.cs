@@ -8,7 +8,7 @@ namespace OnlineShop.Data.Services
         private readonly OnlineShopDbContext _context = context;
         public void AddToCart(int productId, int customerId)
         {
-            Customer? customer = _context.Customers.Find(customerId);
+            User? customer = _context.Users.Find(customerId);
             Product? product = _context.Products.Find(productId);
 
 
@@ -104,7 +104,7 @@ namespace OnlineShop.Data.Services
             _context.Entry(basket).State = EntityState.Modified;
             _context.Orders.Entry(order).State = EntityState.Added;
             _context.SaveChanges();
-            _context.Customers.Find(customerId).Wallet -= order.GetFinalPrice();
+            _context.Users.Find(customerId).Wallet -= order.GetFinalPrice();
             basket.IsFinalize = true;
             _context.SaveChanges();
         }

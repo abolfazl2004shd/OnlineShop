@@ -27,7 +27,7 @@
 
         [ForeignKey(nameof(CustomerId))]
         [Required]
-        public  Customer Customer { get; set; }
+        public  User Customer { get; set; }
         [ForeignKey(nameof(ProductId))]
         [Required]
         public  Product Product { get; set; }

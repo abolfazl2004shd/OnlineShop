@@ -6,13 +6,13 @@ namespace OnlineShop.Data.Services
     {
         private readonly OnlineShopDbContext _context = context;
 
-
+       
 
         public bool RegisterCustomer(RegisterViewModel register)
         {
             try
             {
-                Customer customer = new()
+                User customer = new()
                 {
                     UserName = register.UserName,
                     FirstName = register.FirstName,
@@ -24,6 +24,7 @@ namespace OnlineShop.Data.Services
                     RegistrationDate = DateTime.Now,
                     Wallet = 1000,
                     Password = register.Password,
+                    Role = "customer",
                 };
 
                 _context.Entry(customer).State = EntityState.Added;

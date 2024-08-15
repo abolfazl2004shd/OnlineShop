@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace OnlineShop.Areas.Admin.Pages
 {
-    public class DashbordModel : PageModel
+    public class DashboardModel : PageModel
     {
         public void OnGet()
         {

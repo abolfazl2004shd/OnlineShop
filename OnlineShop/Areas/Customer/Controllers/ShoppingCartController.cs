@@ -1,6 +1,4 @@
-﻿using OnlineShop.Data.Services;
-
-namespace OnlineShop.Areas.Customers.Controllers
+﻿namespace OnlineShop.Areas.Customers.Controllers
 {
     [Authorize]
     [Area(areaName: "Customer")]

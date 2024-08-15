@@ -6,7 +6,7 @@ namespace OnlineShop.Areas.Admin.Pages
 {
     public class DisplayCustomersModel(ICustomerService customerService) : PageModel
     {
-        public List<Models.Customer> Customers { get; set; }
+        public List<Models.User> Customers { get; set; }
         private readonly ICustomerService _customerService = customerService;
         public void OnGet()
         {

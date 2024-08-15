@@ -17,7 +17,7 @@ namespace OnlineShop.Models
 
         [ForeignKey(nameof(CustomerId))]
         [Required]
-        public Customer Customer { get; set; }
+        public User Customer { get; set; }
 
         public List<Item> Items { get; set; }
         public Order? Order { get; set; }

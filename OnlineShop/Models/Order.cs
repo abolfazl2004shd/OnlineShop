@@ -1,6 +1,4 @@
-﻿using OnlineShop.Helper;
-
-namespace OnlineShop.Models
+﻿namespace OnlineShop.Models
 {
     public class Order
     {

@@ -3,6 +3,6 @@
     public interface IAccountService
     {
         bool RegisterCustomer(RegisterViewModel register);
-        //    bool LoginCustomer(LoginViewModel login);
+        //User Login(LoginViewModel login);
     }
 }

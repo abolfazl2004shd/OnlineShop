@@ -1,24 +1,26 @@
 ﻿namespace OnlineShop.Models
-{ 
-    public class Customer
+{
+    public class User
     {
         [Key]
-
         public int CustomerId { get; set; }
         [Required]
-        public required string UserName { get; set; }
+        public string UserName { get; set; } = string.Empty;
         [Required]
-        public required string FirstName { get; set; }
+        public string FirstName { get; set; } = string.Empty;
         [Required]
-        public required string LastName { get; set; }
+        public string LastName { get; set; } = string.Empty;
         [Required]
-        public required string SSN { get; set; }
+        public string SSN { get; set; } = string.Empty;
 
         [Required]
-        public required string Gender { get; set; }
+        public string Gender { get; set; } = string.Empty;
 
         [Required]
-        public required decimal Wallet { get; set; }
+        public decimal Wallet { get; set; }
+
+        [Required]
+        public string Role { get; set; } = string.Empty;
 
         [DataType(DataType.EmailAddress)]
         public string? EmailAddress { get; set; }
@@ -37,5 +39,11 @@
         public List<Basket>? Baskets { get; set; }
         public List<Order>? Orders { get; set; }
         public List<Comment>? Comments { get; set; }
+
+        public string FullName()
+        {
+            string FullName = $"{FirstName} {LastName}";
+            return FullName;
+        }
     }
 }

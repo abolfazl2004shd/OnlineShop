@@ -1,0 +1,19 @@
+﻿@page
+@model OnlineShop.Areas.Admin.Pages.DeleteCustomerModel
+@{
+}
+
+
+<h1>Are you sure you want to delete this customer?</h1>
+
+<div>
+    <h3>@Model.Customer.UserName</h3>
+    <p>@Model.Customer.FullName()</p>
+    <p>Price: @Model.Customer.EmailAddress</p>
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="Customer.CustomerId" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-area="Admin" asp-page="/DisplayCustomers" class="btn btn-secondary">Cancel</a>
+</form>

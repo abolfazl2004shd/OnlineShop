@@ -2,8 +2,9 @@
 {
     public interface ICustomerService
     {
-        List<Customer> AllCustomers();
-        Customer GetCustomerById(int id);
+        List<User> AllCustomers();
+        User GetCustomerById(int id);
         bool RemoveCustomer(int id);
+        bool RemoveCustomer(User customer);
     }
 }
